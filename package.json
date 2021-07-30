@@ -30,10 +30,12 @@
     },
     "dependencies": {
         "bootstrap": "4.5.0",
-        "jquery": "3.5.1"
+        "d3": "^7.0.0",
+        "jquery": "3.5.1",
+        "react": "^17.0.2"
     },
     "devDependencies": {
-        "browser-sync": "2.26.7",
+        "browser-sync": "^2.27.5",
         "del": "5.1.0",
         "gulp": "4.0.2",
         "merge-stream": "2.0.0"
