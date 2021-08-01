@@ -304,7 +304,7 @@ function setScene1() {
         .attr("class","header")
         .attr("x",buttonX + buttonWidth/2)
         .attr("y",buttonY - 50)
-        .text("Project Intro")
+        .text("Visual Report on a Trend in Global Vaccine Confidence")
         .style("text-anchor", "middle")
         .style('font-size', '36px')
         .style('font-family', '"Open Sans", sans-serif')
