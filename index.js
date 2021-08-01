@@ -5,7 +5,16 @@ const barChart = {x: 900, y: 100, barHeight: 100}
 const scatterplot = {x: 400, y:400, width:700, height:500}
 const width = 1400 - margin.left - margin.right,
     height = 900 - margin.top - margin.bottom;
-const globalColors = {default:"steelblue", correct:"green", incorrect:"red", continue:"yellow", tooltip:"#b6d8e3"}
+const globalColors = {
+    default:"#15abd1",
+    scatter2color:"#34a832",
+    correct:"#2aeb28",
+    incorrect:"#e85620",
+    continue:"#fff596",
+    neutral:"#d6d5d2",
+    tooltip1:"#9ed9e8",
+    tooltip2:"#90e38f",
+    annotation:"#d6d5d2"}
 let pointRadius = 5
 
 
@@ -16,7 +25,7 @@ const g = d3.select("body").append("svg")
     .attr("transform", "translate(" + (margin.left + barChart.x) + "," + (margin.top + barChart.y) + ")");
 
 
-function drawScatterplot(x, y, width, height, xfield, yfield, pointColor, source) {
+function drawScatterplot(x, y, width, height, xfield, yfield, pointColor, source, tooltipColor) {
     d3.csv(source)
         .then(function(data) {
             let maxX = (xfield.includes("hdi") ? 1 : 100)
@@ -28,6 +37,7 @@ function drawScatterplot(x, y, width, height, xfield, yfield, pointColor, source
                 .data(data)
                 .enter()
                 .append("circle")
+                .attr("id",function(d){return d["country"]})
                 .attr("cx",function(d) {return d[xfield]*width/maxX + margin.left})
                 .attr("cy",function(d) {return height + margin.top})
                 .attr("r",pointRadius)
@@ -72,7 +82,7 @@ function drawScatterplot(x, y, width, height, xfield, yfield, pointColor, source
 
             let tooltipWidth = 480.0
             let tooltipHeight = 30.0
-            drawTooltip(100,100,tooltipWidth,tooltipHeight,"test text",globalColors.tooltip)
+            drawTooltip(100,100,tooltipWidth,tooltipHeight,"test text",tooltipColor)
             setTooltipOpacity(0)
 
             // turn red when clicked
@@ -99,6 +109,7 @@ function drawScatterplot(x, y, width, height, xfield, yfield, pointColor, source
                 })
                 .on("mouseout",function(e,d) {
                     setTooltipOpacity(0)
+                    d3.select(this).style("fill",pointColor)
                 })
         });
 }
@@ -142,6 +153,7 @@ function drawBarGraph(xfield, barColor, barHeight, barWidthFactor) {
 
 function drawButton (x,y,width,height,text,startColor,endColor,func) {
     d3.select("svg").append("rect")
+        .attr("class","button")
         .attr("x",x)
         .attr("y",y)
         .attr("width",width)
@@ -155,18 +167,16 @@ function drawButton (x,y,width,height,text,startColor,endColor,func) {
         })
 
     d3.select("svg").append("text")
+        .attr("class","button")
         .attr("x",x + width/2)
         .attr("y",y + height/2 + 10)
         .text(text)
         .style("text-anchor", "middle")
         .style('font-size', '36px')
         .style('font-family', '"Open Sans", sans-serif')
-}
-
-function countryFilter(countryName) {
-    g.selectAll("circle").remove()
-
-    g.selectAll("circle")
+        .on("click",function() {
+            func()
+        })
 }
 
 function clearSVG() {
@@ -223,6 +233,58 @@ function setTooltipText(text) {
     g.selectAll(".tooltiptext").text(text)
 }
 
+function filterPoints(parameter,filter) {
+    g.selectAll("circle")
+        .transition().duration(200)
+        .style("opacity",function(d) {
+            if (d[parameter].includes(filter)) {
+                return 1.0
+            } else {
+                return 0.0
+            }
+        })
+}
+
+function drawAnnotation(x,y,pointX,pointY,width,height,color,text) {
+    let xYes = pointX < x + width/2 ? 0 : 1 // left side or right side
+    let yYes = pointY < y + height/2? 0 : 1 // top or bottom
+    let delay = 500
+
+    g.append("rect")
+        .transition().duration(delay)
+        .attr("class","annotation")
+        .attr("x",x)
+        .attr("y",y)
+        .attr("width",width)
+        .attr("height",height)
+        .style("fill",color)
+        .style("stroke","black")
+        .style("stroke-width",1)
+
+    let lines = text.split(";")
+
+    for (let i = 0; i < lines.length; i++) {
+        g.append("text")
+            .transition().duration(delay)
+            .attr("class","annotation")
+            .attr("x",x + 10)
+            .attr("y",y + 20 + 16*i)
+            .text(lines[i])
+            .style("text-anchor", "left")
+            .style('font-size', '14px')
+            .style('font-family', '"Open Sans", sans-serif')
+    }
+
+    g.append("line")
+        .transition().duration(delay)
+        .attr("class","annotation")
+        .style("stroke","black")
+        .attr("x1",x + xYes * width)
+        .attr("y1",y + yYes * height)
+        .attr("x2",pointX)
+        .attr("y2",pointY)
+}
+
 let buttonX = (width - barChart.x - margin.left) - 10 // for gap
 let buttonY = barChart.y + margin.top
 let buttonWidth = -2 * (width / 2 - (barChart.x + margin.left)) - 10
@@ -243,7 +305,7 @@ function setScene2() {
 
     for (let i = 0; i < 4; i++) {
         drawButton(buttonX,buttonY + i * barChart.barHeight,buttonWidth,barChart.barHeight - 10,countries[i],
-            "gray",colors[i],
+            globalColors.neutral,colors[i],
             function() {
             drawBarGraph("vaccines_safe","steelblue",barChart.barHeight,4);
             drawButton(buttonX,buttonY + 4*barChart.barHeight,buttonWidth,barChart.barHeight,
@@ -252,9 +314,13 @@ function setScene2() {
     }
 }
 
+let textX = 900
+let textY = 100
+
 function setScene3() {
     clearSVG()
     d3.select("svg").append("text")
+        .attr("class","header")
         .attr("x",buttonX + buttonWidth/2)
         .attr("y",buttonY - 50)
         .text("Positive Correlation between Religiosity and Vaccine Trust")
@@ -263,16 +329,72 @@ function setScene3() {
         .style('font-family', '"Open Sans", sans-serif')
         .style("font-weight","bold")
 
-    drawScatterplot(0,0,800,800,"religiosity","vaccines_safe",globalColors.default,"resources/vaxdata.csv")
-    drawButton(940,700,buttonWidth,barChart.barHeight,
-        "Continue",globalColors.continue,globalColors.continue,function(){setScene4()})
 
+    let text = "There exists a moderate correlation ;" +
+        "between religiosity and vaccine trust, ;" +
+        "with R-squared equal to 0.44 for the ;" +
+        "two variables. Hover over any of the ;" +
+        "data points to see which country they ;" +
+        "correspond to."
+    let lines = text.split(";")
+    let delay = 500
+
+    for (let i = 0; i < lines.length; i++) {
+        g.append("text")
+            .attr("class","flavor")
+            .attr("x",textX + 50)
+            .attr("y",textY + 100 + i*40)
+            .transition().duration(delay)
+            .text(lines[i])
+            .style("text-anchor", "left")
+            .style('font-size', '26px')
+            .style('font-family', '"Open Sans", sans-serif')
+    }
+
+    drawScatterplot(0,0,800,800,"religiosity","vaccines_safe",globalColors.default,"resources/vaxdata.csv",globalColors.tooltip1)
+    drawButton(textX + 40,textY + 600,buttonWidth,barChart.barHeight,
+        "Continue",globalColors.continue,globalColors.continue,function(){
+            let target = ["Japan", "Bangladesh", "USA"]
+            let annotations = [
+                "Despite their high mask use, Japan has the ;" +
+                "least vaccine trust out of any country, ;" +
+                "likely stemming from a history of government ;" +
+                "incompetence regarding the issue over the ;" +
+                "past several decades.",
+
+                "According to the data, Bangladesh has the ;" +
+                "highest percentage of citizens who think ;" +
+                "vaccines are safe in general. It's also ;" +
+                "among the most religious countries.",
+
+                "The United States is towards the middle of ;" +
+                "the pack, just behind countries like Chile ;" +
+                "and Kyrgyzstan."
+            ]
+            let coords = [[400,690],[100,150],[590,560]]
+            let annoWidth = 300
+            let annoHeight = [95,80,65]
+
+            for (let i = 0; i < target.length; i++) {
+                console.log("#" + target[i])
+                let pointX = parseFloat(d3.selectAll("#" + target[i]).attr("cx"))
+                let pointY = parseFloat(d3.selectAll("#" + target[i]).attr("cy"))
+                drawAnnotation(coords[i][0],coords[i][1],
+                    pointX,pointY,
+                    annoWidth,annoHeight[i],globalColors.annotation,annotations[i])
+            }
+
+            d3.selectAll(".button").remove()
+            drawButton(textX + 40,textY + 600,buttonWidth,barChart.barHeight,
+                "Continue",globalColors.continue,globalColors.continue,function(){setScene4()})
+        })
 
 }
 
 function setScene4() {
     clearSVG()
     d3.select("svg").append("text")
+        .attr("class","header")
         .attr("x",buttonX + buttonWidth/2)
         .attr("y",buttonY - 50)
         .text("Negative Correlation between HDI and Vaccine Trust")
@@ -281,10 +403,67 @@ function setScene4() {
         .style('font-family', '"Open Sans", sans-serif')
         .style("font-weight","bold")
 
-    drawScatterplot(0,0,800,800,"hdi","vaccines_safe",globalColors.default,"resources/vaxdata.csv")
-    drawButton(940,700,buttonWidth,barChart.barHeight,
-        "Continue",globalColors.continue,globalColors.continue,function(){moveTooltip(1000,100,100,100)})
+    let text =
+        "Simiarly, there exists a negative ;" +
+        "correlation between the Human ;" +
+        "Development Index (HDI) and vaccine ;" +
+        "trust. The HDI is a metric that ;" +
+        "measures the overall life quality ;" +
+        "of citizens within a given country. ;" +
+        "It considers factors like lifespan, ;" +
+        "education, and income."
+    let lines = text.split(";")
+    let delay = 500
 
+    for (let i = 0; i < lines.length; i++) {
+        g.append("text")
+            .attr("class","flavor")
+            .attr("x",textX + 50)
+            .attr("y",textY + 100 + i*40)
+            .transition().duration(delay)
+            .text(lines[i])
+            .style("text-anchor", "left")
+            .style('font-size', '26px')
+            .style('font-family', '"Open Sans", sans-serif')
+    }
+
+    drawScatterplot(0,0,800,800,"hdi","vaccines_safe",globalColors.scatter2color,"resources/vaxdata.csv",globalColors.tooltip2)
+    drawButton(textX + 40,textY + 600,buttonWidth,barChart.barHeight,
+        "Continue",globalColors.continue,globalColors.continue,function(){
+            let target = ["Japan", "Bangladesh", "USA"]
+            let annotations = [
+                "Japan has one of the highest HDIs of the ;" +
+                "countries listed, but ranks dead last in ;" +
+                "vaccine trust.",
+
+                "Despite having a very large population ;" +
+                "and one of the lowest HDIs of the ;" +
+                "countries listed, Bangladesh has a very ;" +
+                "low rate of vaccine hesitancy.",
+
+                "The United States is among the most developed ;" +
+                "nations in the world, though it still trails behind ;" +
+                "European republics like Norway. Of the extremely ;" +
+                "developed nations, its vaccine hesitancy rates ;" +
+                "are not actually that bad."
+            ]
+            let coords = [[400,690],[50,120],[150,500]]
+            let annoWidth = [300,280,330]
+            let annoHeight = [65,80,95]
+
+            for (let i = 0; i < target.length; i++) {
+                console.log("#" + target[i])
+                let pointX = parseFloat(d3.selectAll("#" + target[i]).attr("cx"))
+                let pointY = parseFloat(d3.selectAll("#" + target[i]).attr("cy"))
+                drawAnnotation(coords[i][0],coords[i][1],
+                    pointX,pointY,
+                    annoWidth[i],annoHeight[i],globalColors.annotation,annotations[i])
+            }
+
+            d3.selectAll(".button").remove()
+            drawButton(textX + 40,textY + 600,buttonWidth,barChart.barHeight,
+                "Continue",globalColors.continue,globalColors.continue,function(){setScene4()})
+        })
 
 }
 
