@@ -404,7 +404,7 @@ function setScene4() {
         .style("font-weight","bold")
 
     let text =
-        "Simiarly, there exists a negative ;" +
+        "Surprisingly, there exists a negative ;" +
         "correlation between the Human ;" +
         "Development Index (HDI) and vaccine ;" +
         "trust. The HDI is a metric that ;" +
