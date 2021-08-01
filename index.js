@@ -3,7 +3,7 @@ import * as d3 from "https://cdn.skypack.dev/d3@7";
 const margin = {top: 10, right: 10, bottom: 20, left: 10};
 const barChart = {x: 900, y: 100, barHeight: 100}
 const scatterplot = {x: 400, y:400, width:700, height:500}
-const width = 1400 - margin.left - margin.right,
+const width = 1480 - margin.left - margin.right,
     height = 900 - margin.top - margin.bottom;
 const globalColors = {
     default:"#15abd1",
@@ -24,6 +24,15 @@ const g = d3.select("body").append("svg")
     .append("g")
     .attr("transform", "translate(" + (margin.left + barChart.x) + "," + (margin.top + barChart.y) + ")");
 
+function getWidth() {
+    return Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.body.offsetWidth,
+        document.documentElement.offsetWidth,
+        document.documentElement.clientWidth
+    );
+}
 
 function drawScatterplot(x, y, width, height, xfield, yfield, pointColor, source, tooltipColor) {
     d3.csv(source)
@@ -289,6 +298,55 @@ let buttonX = (width - barChart.x - margin.left) - 10 // for gap
 let buttonY = barChart.y + margin.top
 let buttonWidth = -2 * (width / 2 - (barChart.x + margin.left)) - 10
 
+function setScene1() {
+    clearSVG()
+    d3.select("svg").append("text")
+        .attr("class","header")
+        .attr("x",buttonX + buttonWidth/2)
+        .attr("y",buttonY - 50)
+        .text("Project Intro")
+        .style("text-anchor", "middle")
+        .style('font-size', '36px')
+        .style('font-family', '"Open Sans", sans-serif')
+        .style("font-weight","bold")
+
+    let text =
+        "This project was created by Dylan Bowman for the final ;" +
+        "assignment of CS 416 (Data Visualization) at the University ;" +
+        "of Illinois. It is based on a 2021 paper by Erikkson and ;" +
+        "Vartanova. ;" +
+        ";" +
+        "[Kimmo Eriksson & Irina Vartanova (2021): Human Vaccines ;" +
+        "& Immunotherapeutics, DOI:10.1080/21645515.2021.1883389]"
+    let lines = text.split(";")
+    let delay = 1000
+
+    for (let i = 0; i < lines.length; i++) {
+        d3.select("svg").append("text")
+            .attr("class","flavor")
+            .attr("x",buttonX + buttonWidth/2 - 320)
+            .attr("y",2000)
+            .text(lines[i])
+            .style("text-anchor", "left")
+            .attr("xlink:href",function() {
+                if (lines[i].includes("- ")) {
+                    return lines[i].substr(2)
+                } else {
+                    return ""
+                }
+            })
+            .transition().duration(delay)
+            .attr("y",textY + 50 + i*40)
+            .style('font-size', '26px')
+            .style('font-family', '"Open Sans", sans-serif')
+    }
+
+    setTimeout(function() {
+        drawButton(buttonX,buttonY + 4*barChart.barHeight - 75,buttonWidth,barChart.barHeight,
+            "Continue",globalColors.continue,globalColors.continue,function(){setScene2()});
+    },800)
+}
+
 function setScene2() {
     clearSVG()
     let countries = ["Bangladesh", "Japan", "Libya", "USA"]
@@ -308,10 +366,12 @@ function setScene2() {
             globalColors.neutral,colors[i],
             function() {
             drawBarGraph("vaccines_safe","steelblue",barChart.barHeight,4);
-            drawButton(buttonX,buttonY + 4*barChart.barHeight,buttonWidth,barChart.barHeight,
-                "Continue",globalColors.continue,globalColors.continue,function(){setScene3()})
+                drawButton(buttonX,buttonY + 4*barChart.barHeight,buttonWidth,barChart.barHeight,
+                    "Continue",globalColors.continue,globalColors.continue,function(){setScene3()})
         })
     }
+
+
 }
 
 let textX = 900
@@ -342,7 +402,7 @@ function setScene3() {
     for (let i = 0; i < lines.length; i++) {
         g.append("text")
             .attr("class","flavor")
-            .attr("x",textX + 50)
+            .attr("x",textX + 10)
             .attr("y",textY + 100 + i*40)
             .transition().duration(delay)
             .text(lines[i])
@@ -462,9 +522,65 @@ function setScene4() {
 
             d3.selectAll(".button").remove()
             drawButton(textX + 40,textY + 600,buttonWidth,barChart.barHeight,
-                "Continue",globalColors.continue,globalColors.continue,function(){setScene4()})
+                "Continue",globalColors.continue,globalColors.continue,function(){setScene5()})
         })
 
 }
 
-setScene2()
+function setScene5() {
+    clearSVG()
+    d3.select("svg").append("text")
+        .attr("class","header")
+        .attr("x",buttonX + buttonWidth/2)
+        .attr("y",buttonY - 50)
+        .text("Explanations for the Correlation")
+        .style("text-anchor", "middle")
+        .style('font-size', '36px')
+        .style('font-family', '"Open Sans", sans-serif')
+        .style("font-weight","bold")
+
+    let text =
+        "The authors of the paper this project is based on propose ;" +
+        "that \"the magical/spiritual beliefs that vaccine hesitancy ;" +
+        "is often grounded in may be incompatible with traditional ;" +
+        "religious teachings. Thus, even when religions do not ;" +
+        "speak directly to the issue of vaccines, religiosity may ;" +
+        "tend to crowd out the philosophical underpinnings of ;" +
+        "anti-vaccine sentiments.\" ;" +
+        ";" +
+        "My hypothesis is that the combination of low religiosity ;" +
+        "and high development creates a distrust towards the ;" +
+        "government, which makes individuals more hesitant to use ;" +
+        "vaccines." +
+        ";" +
+        ";" +
+        ";" +
+        "Sources: ;" +
+        "- https://www.tandfonline.com/doi/pdf/10.1080/21645515.2021.1883389 ;" +
+        "- https://www.japantimes.co.jp/news/2020/12/23/national/japan-vaccine-history-coronavirus/ ;" +
+        "- http://hdr.undp.org/en/content/human-development-index-hdi ;"
+    let lines = text.split(";")
+    let delay = 1000
+
+    for (let i = 0; i < lines.length; i++) {
+        d3.select("svg").append("text")
+            .attr("class","flavor")
+            .attr("x",buttonX + buttonWidth/2 - 320)
+            .attr("y",2000)
+            .text(lines[i])
+            .style("text-anchor", "left")
+            .attr("xlink:href",function() {
+                if (lines[i].includes("- ")) {
+                    return lines[i].substr(2)
+                } else {
+                    return ""
+                }
+            })
+            .transition().duration(delay)
+            .attr("y",textY + 50 + i*40)
+            .style('font-size', '26px')
+            .style('font-family', '"Open Sans", sans-serif')
+    }
+}
+
+setScene1()
