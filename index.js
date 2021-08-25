@@ -311,10 +311,10 @@ function setScene1() {
         .style("font-weight","bold")
 
     let text =
-        "This project was created by Dylan Bowman for the final ;" +
-        "assignment of CS 416 (Data Visualization) at the University ;" +
-        "of Illinois. It is based on a 2021 paper by Erikkson and ;" +
-        "Vartanova. ;" +
+        "This project was created by Dylan Bowman, an undergraduate ;" +
+        "in Mathematics and Conputer Science at the University ;" +
+        "of Illinois. The project is based on a 2021 paper by Erikkson ;" +
+        "and Vartanova. ;" +
         ";" +
         "[Kimmo Eriksson & Irina Vartanova (2021): Human Vaccines ;" +
         "& Immunotherapeutics, DOI:10.1080/21645515.2021.1883389]"
