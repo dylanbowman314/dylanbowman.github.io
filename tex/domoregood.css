@@ -1,111 +1,659 @@
- 
-/* start css.sty */
-.cmr-17{font-size:170%;}
-p{margin-top:0;margin-bottom:0}
-p.indent{text-indent:0;}
-p + p{margin-top:1em;}
-p + div, p + pre {margin-top:1em;}
-div + p, pre + p {margin-top:1em;}
-@media print {div.crosslinks {visibility:hidden;}}
-a img { border-top: 0; border-left: 0; border-right: 0; }
-center { margin-top:1em; margin-bottom:1em; }
-td center { margin-top:0em; margin-bottom:0em; }
-.Canvas { position:relative; }
-img.math{vertical-align:middle;}
-li p.indent { text-indent: 0em }
-li p:first-child{ margin-top:0em; }
-li p:last-child, li div:last-child { margin-bottom:0.5em; }
-li p~ul:last-child, li p~ol:last-child{ margin-bottom:0.5em; }
-.enumerate1 {list-style-type:decimal;}
-.enumerate2 {list-style-type:lower-alpha;}
-.enumerate3 {list-style-type:lower-roman;}
-.enumerate4 {list-style-type:upper-alpha;}
-div.newtheorem { margin-bottom: 2em; margin-top: 2em;}
-.obeylines-h,.obeylines-v {white-space: nowrap; }
-div.obeylines-v p { margin-top:0; margin-bottom:0; }
-.overline{ text-decoration:overline; }
-.overline img{ border-top: 1px solid black; }
-td.displaylines {text-align:center; white-space:nowrap;}
-.centerline {text-align:center;}
-.rightline {text-align:right;}
-div.verbatim {font-family: monospace,monospace; white-space: nowrap; text-align:left; clear:both; }
-.fbox {padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
-div.fbox {display:table}
-div.center div.fbox {text-align:center; clear:both; padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
-div.minipage{width:100%;}
-div.center, div.center div.center {text-align: center; margin-left:1em; margin-right:1em;}
-div.center div {text-align: left;}
-div.flushright, div.flushright div.flushright {text-align: right;}
-div.flushright div {text-align: left;}
-div.flushleft {text-align: left;}
-.underline{ text-decoration:underline; }
-.underline img{ border-bottom: 1px solid black; margin-bottom:1pt; }
-.framebox-c, .framebox-l, .framebox-r { padding-left:3.0pt; padding-right:3.0pt; text-indent:0pt; border:solid black 0.4pt; }
-.framebox-c {text-align:center;}
-.framebox-l {text-align:left;}
-.framebox-r {text-align:right;}
-span.thank-mark{ vertical-align: super }
-span.footnote-mark sup.textsuperscript, span.footnote-mark a sup.textsuperscript{ font-size:80%; }
-div.tabular, div.center div.tabular {text-align: center; margin-top:0.5em; margin-bottom:0.5em; }
-table.tabular td p{margin-top:0em;}
-table.tabular {margin-left: auto; margin-right: auto;}
-td p:first-child{ margin-top:0em; }
-td p:last-child{ margin-bottom:0em; }
-div.td00{ margin-left:0pt; margin-right:0pt; }
-div.td01{ margin-left:0pt; margin-right:5pt; }
-div.td10{ margin-left:5pt; margin-right:0pt; }
-div.td11{ margin-left:5pt; margin-right:5pt; }
-table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
-td.td00{ padding-left:0pt; padding-right:0pt; }
-td.td01{ padding-left:0pt; padding-right:5pt; }
-td.td10{ padding-left:5pt; padding-right:0pt; }
-td.td11{ padding-left:5pt; padding-right:5pt; }
-table[rules] {border-left:solid black 0.4pt; border-right:solid black 0.4pt; }
-.hline hr, .cline hr{ height : 0px; margin:0px; }
-.hline td, .cline td{ padding: 0; }
-.hline hr, .cline hr{border:none;border-top:1px solid black;}
-.tabbing-right {text-align:right;}
-div.float, div.figure {margin-left: auto; margin-right: auto;}
-div.float img {text-align:center;}
-div.figure img {text-align:center;}
-.marginpar,.reversemarginpar {width:20%; float:right; text-align:left; margin-left:auto; margin-top:0.5em; font-size:85%; text-decoration:underline;}
-.marginpar p,.reversemarginpar p{margin-top:0.4em; margin-bottom:0.4em;}
-.reversemarginpar{float:left;}
-table.equation {width:100%;}
-.equation td{text-align:center; }
-td.equation { margin-top:1em; margin-bottom:1em; } 
-td.equation-label { width:5%; text-align:center; }
-td.eqnarray4 { width:5%; white-space: normal; }
-td.eqnarray2 { width:5%; }
-table.eqnarray-star, table.eqnarray {width:100%;}
-div.eqnarray{text-align:center;}
-div.array {text-align:center;}
-div.pmatrix {text-align:center;}
-table.pmatrix {width:100%;}
-span.pmatrix img{vertical-align:middle;}
-div.pmatrix {text-align:center;}
-table.pmatrix {width:100%;}
-span.bar-css {text-decoration:overline;}
-img.cdots{vertical-align:middle;}
-.partToc a, .partToc, .likepartToc a, .likepartToc {line-height: 200%; font-weight:bold; font-size:110%;}
-.index-item, .index-subitem, .index-subsubitem {display:block}
-div.caption {text-indent:-2em; margin-left:3em; margin-right:1em; text-align:left;}
-div.caption span.id{font-weight: bold; white-space: nowrap; }
-h1.partHead{text-align: center}
-p.bibitem { text-indent: -2em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
-p.bibitem-p { text-indent: 0em; margin-left: 2em; margin-top:0.6em; margin-bottom:0.6em; }
-.paragraphHead, .likeparagraphHead { margin-top:2em; font-weight: bold;}
-.subparagraphHead, .likesubparagraphHead { font-weight: bold;}
-.quote {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; margin-right:1em; text-align:justify;}
-.verse{white-space:nowrap; margin-left:2em}
-div.maketitle {text-align:center;}
-h2.titleHead{text-align:center;}
-div.maketitle{ margin-bottom: 2em; }
-div.author, div.date {text-align:center;}
-div.thanks{text-align:left; margin-left:10%; font-size:85%; font-style:italic; }
-div.author{white-space: nowrap;}
-.quotation {margin-bottom:0.25em; margin-top:0.25em; margin-left:1em; }
-.abstract p {margin-left:5%; margin-right:5%;}
-div.abstract {width:100%;}
-/* end css.sty */
+/* domoregood.css from domoregood.tex (TeX4ht) */
+  /*!
+ * LaTeX.css (https://latex.now.sh/)
+ *
+ * Source: https://github.com/vincentdoerig/latex-css
+ * Licensed under MIT (https://github.com/vincentdoerig/latex-css/blob/master/LICENSE)
+*/
+
+@font-face {
+    font-family: 'Latin Modern';
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('./fonts/LM-regular.woff2') format('woff2'),
+      url('./fonts/LM-regular.woff') format('woff'),
+      url('./fonts/LM-regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Latin Modern';
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url('./fonts/LM-italic.woff2') format('woff2'),
+      url('./fonts/LM-italic.woff') format('woff'),
+      url('./fonts/LM-italic.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Latin Modern';
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url('./fonts/LM-bold.woff2') format('woff2'),
+      url('./fonts/LM-bold.woff') format('woff'),
+      url('./fonts/LM-bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Latin Modern';
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    src: url('./fonts/LM-bold-italic.woff2') format('woff2'),
+      url('./fonts/LM-bold-italic.woff') format('woff'),
+      url('./fonts/LM-bold-italic.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Libertinus';
+                                                                  
+
+                                                                  
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url('./fonts/Libertinus-regular.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Libertinus';
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url('./fonts/Libertinus-italic.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Libertinus';
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url('./fonts/Libertinus-bold.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Libertinus';
+    font-style: italic;
+    font-weight: bold;
+    font-display: swap;
+    src: url('./fonts/Libertinus-bold-italic.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Libertinus';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('./fonts/Libertinus-semibold.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Libertinus';
+    font-style: italic;
+    font-weight: 600;
+    font-display: swap;
+    src: url('./fonts/Libertinus-semibold-italic.woff2') format('woff2');
+  }
+
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+                                                                  
+
+                                                                  
+    box-sizing: border-box;
+  }
+
+  :root {
+    --body-color: hsl(0, 5%, 10%);
+    --body-bg-color: hsl(210, 20%, 98%);
+    --link-visited: hsl(0, 100%, 33%);
+    --link-focus-outline: hsl(220, 90%, 52%);
+    --pre-bg-color: hsl(210, 28%, 93%);
+    --kbd-bg-color: hsl(210, 5%, 100%);
+    --kbd-border-color: hsl(210, 5%, 70%);
+    --table-border-color: black;
+    --sidenote-target-border-color: hsl(55, 55%, 70%);
+    --footnotes-border-color: hsl(0, 0%, 39%);
+  }
+
+  .latex-dark {
+    --body-color: hsl(0, 0%, 86%);
+    --body-bg-color: hsl(0, 0%, 16%);
+    --link-visited: hsl(196 80% 77%);
+    --link-focus-outline: hsl(215, 63%, 73%);
+    --pre-bg-color: hsl(0, 1%, 25%);
+    --kbd-bg-color: hsl(0, 0%, 16%);
+    --kbd-border-color: hsl(210, 5%, 70%);
+    --table-border-color: white;
+    --sidenote-target-border-color: hsl(0, 0%, 59%);
+    --footnotes-border-color: hsl(0, 0%, 59%);
+    --proof-symbol-filter: invert(80%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+     .latex-dark-auto {
+      --body-color: hsl(0, 0%, 86%);
+      --body-bg-color: hsl(0, 0%, 16%);
+      --link-visited: hsl(196 80% 77%);
+      --link-focus-outline: hsl(215, 63%, 73%);
+      --pre-bg-color: hsl(0, 1%, 25%);
+      --kbd-bg-color: hsl(0, 0%, 16%);
+      --kbd-border-color: hsl(210, 5%, 70%);
+      --table-border-color: white;
+      --sidenote-target-border-color: hsl(0, 0%, 59%);
+      --footnotes-border-color: hsl(0, 0%, 59%);
+      --proof-symbol-filter: invert(80%);
+    }
+  }
+
+  /* Remove default margin */
+  body,
+  h1,
+  h2,
+                                                                  
+
+                                                                  
+  h3,
+  h4,
+  p,
+  ul[class],
+  ol[class],
+  li,
+  figure,
+  figcaption,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  /* Make default font-size 1rem and add smooth scrolling to anchors */
+  html {
+    font-size: 1rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body.libertinus {
+    font-family: 'Libertinus', Georgia, Cambria, 'Times New Roman', Times, serif;
+  }
+
+  body {
+    font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
+    line-height: 1.8;
+
+    max-width: 80ch;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0 auto;
+    padding: 2rem 1.25rem;
+
+    counter-reset: theorem definition sidenote-counter;
+
+    color: var(--body-color);
+    background-color: var(--body-bg-color);
+
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Justify and hyphenate all paragraphs */
+  p {
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+                                                                  
+
+                                                                  
+    -moz-hyphens: auto;
+    margin-top: 1rem;
+  }
+
+  /* A elements that don't have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make links red */
+  a,
+  a:visited {
+    color: var(--link-visited);
+  }
+
+  a:focus {
+    outline-offset: 2px;
+    outline: 2px solid var(--link-focus-outline);
+  }
+
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Prevent textarea from overflowing */
+  textarea {
+    width: 100%;
+  }
+
+  /* Natural flow and rhythm in articles by default */
+  article > * + * {
+    margin-top: 1em;
+  }
+
+  /* Styles for inline code or code snippets */
+  code,
+  pre,
+  kbd {
+    font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+                                                                  
+
+                                                                  
+      monospace;
+    font-size: 85%;
+  }
+  pre {
+    padding: 1rem 1.4rem;
+    max-width: 100%;
+    overflow: auto;
+    border-radius: 4px;
+    background: var(--pre-bg-color);
+  }
+  pre code {
+    font-size: 95%;
+    position: relative;
+  }
+  kbd {
+    background: var(--kbd-bg-color);
+    border: 1px solid var(--kbd-border-color);
+    border-radius: 2px;
+    padding: 2px 4px;
+    font-size: 75%;
+  }
+
+  /* Better tables */
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: auto;
+    max-width: 100%;
+    border-top: 2.27px solid var(--table-border-color);
+    border-bottom: 2.27px solid var(--table-border-color);
+    /* display: block; */
+    overflow-x: auto; /* does not work because element is not block */
+    /* white-space: nowrap; */
+    counter-increment: caption;
+  }
+  /* add bottom border on column table headings  */
+  table tr > th[scope='col'] {
+    border-bottom: 1.36px solid var(--table-border-color);
+  }
+  /* add right border on row table headings  */
+  table tr > th[scope='row'] {
+    border-right: 1.36px solid var(--table-border-color);
+  }
+  table > tbody > tr:first-child > td,
+  table > tbody > tr:first-child > th {
+    border-top: 1.36px solid var(--table-border-color);
+  }
+  table > tbody > tr:last-child > td,
+  table > tbody > tr:last-child > th {
+    border-bottom: 1.36px solid var(--table-border-color);
+                                                                  
+
+                                                                  
+  }
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.5rem;
+    line-height: 1.1;
+  }
+  /* Table caption */
+  caption {
+    text-align: left;
+    font-size: 0.923em;
+    /* border-bottom: 2pt solid #000; */
+    padding: 0 0.25em 0.25em;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  caption::before {
+    content: 'Table ' counter(caption) '. ';
+    font-weight: bold;
+  }
+
+  /* allow scroll on the x-axis */
+  .scroll-wrapper {
+    overflow-x: auto;
+  }
+
+  /* if a table is wrapped in a scroll wrapper,
+    the table cells shouldn't wrap */
+  .scroll-wrapper > table td {
+    white-space: nowrap;
+  }
+
+  /* Center align the title */
+  h1:first-child {
+    text-align: center;
+  }
+
+  /* Nested ordered list for ToC */
+  nav ol {
+    counter-reset: item;
+    padding-left: 2rem;
+  }
+  nav li {
+    display: block;
+  }
+  nav li:before {
+    content: counters(item, '.') ' ';
+    counter-increment: item;
+                                                                  
+
+                                                                  
+    padding-right: 0.85rem;
+  }
+
+  /* Center definitions (most useful for display equations) */
+  dl dd {
+    text-align: center;
+  }
+
+  /* Theorem */
+  .theorem {
+    counter-increment: theorem;
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+  }
+  .theorem::before {
+    content: 'Theorem ' counter(theorem) '. ';
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  /* Lemma */
+  .lemma {
+    counter-increment: theorem;
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+  }
+  .lemma::before {
+    content: 'Lemma ' counter(theorem) '. ';
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  /* Proof */
+  .proof {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+    position: relative;
+  }
+  .proof::before {
+    content: 'Proof.' attr(title);
+    font-style: italic;
+  }
+  .proof:after {
+    content: '';
+    filter: var(--proof-symbol-filter);
+    position: absolute;
+    right: -12px;
+                                                                  
+
+                                                                  
+    bottom: -2px;
+  }
+
+  /* Definition */
+  .definition {
+    counter-increment: definition;
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+  }
+  .definition::before {
+    content: 'Definition ' counter(definition) '. ';
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  /* Center align author name, use small caps and add vertical spacing  */
+  .author {
+    margin: 0.85rem 0;
+    font-variant-caps: small-caps;
+    text-align: center;
+  }
+
+  /* Sidenotes */
+
+  .sidenote {
+    font-size: 0.8rem;
+    float: right;
+    clear: right;
+    width: 18vw;
+    margin-right: -20vw;
+    margin-bottom: 1em;
+  }
+
+  .sidenote.left {
+    float: left;
+    margin-left: -20vw;
+    margin-bottom: 1em;
+  }
+
+  /* (WIP) add border when a sidenote is clicked on */
+  .sidenote:target {
+    border: var(--sidenote-target-border-color) 1.5px solid;
+    padding: 0 .5rem;
+    scroll-margin-block-start: 10rem;
+  }
+
+  /* sidenote counter */
+  .sidenote-number {
+    counter-increment: sidenote-counter;
+                                                                  
+
+                                                                  
+  }
+
+  .sidenote-number::after,
+  .sidenote::before {
+    position: relative;
+    vertical-align: baseline;
+  }
+
+  /* add number in main content */
+  .sidenote-number::after {
+    content: counter(sidenote-counter);
+    font-size: 0.7rem;
+    top: -0.5rem;
+    left: 0.1rem;
+  }
+
+  /* add number in front of the sidenote */
+  .sidenote-number ~ .sidenote::before {
+    content: counter(sidenote-counter) ' ';
+    font-size: 0.7rem;
+    top: -0.5rem;
+  }
+
+  label.sidenote-toggle:not(.sidenote-number) {
+    display: none;
+  }
+
+  /* sidenotes inside blockquotes are indented more */
+  blockquote .sidenote {
+    margin-right: -24vw;
+    width: 18vw;
+  }
+
+
+  label.sidenote-toggle {
+    display: inline;
+    cursor: pointer;
+  }
+
+  input.sidenote-toggle {
+    display: none;
+  }
+
+  @media (max-width: 1050px) {
+    label.sidenote-toggle:not(.sidenote-number) {
+      display: inline;
+    }
+    .sidenote {
+      display: none;
+    }
+                                                                  
+
+                                                                  
+    .sidenote-toggle:checked + .sidenote {
+      display: block;
+      margin: 0.5rem 1.25rem 1rem 0.5rem;
+      float: left;
+      left: 1rem;
+      clear: both;
+      width: 95%;
+    }
+    /* tweak indentation of sidenote inside a blockquote */
+    blockquote .sidenote {
+      margin-right: -25vw;
+      width: 16vw;
+    }
+  }
+
+  /* Make footnote text smaller and left align it (looks bad with long URLs) */
+  .footnotes p {
+    text-align: left;
+    line-height: 1.5;
+    font-size: 85%;
+    margin-bottom: 0.4rem;
+  }
+  .footnotes {
+    border-top: 1px solid var(--footnotes-border-color);
+  }
+
+  /* Center title and paragraph */
+  .abstract,
+  .abstract p {
+    text-align: center;
+    margin-top: 0;
+  }
+  .abstract {
+    margin: 2.25rem 0;
+  }
+  .abstract > h2 {
+    font-size: 1rem;
+    margin-bottom: -0.2rem;
+  }
+
+  /* Format the LaTeX symbol correctly (a higher up, e lower) */
+  .latex span:nth-child(1) {
+    text-transform: uppercase;
+    font-size: 0.75em;
+    vertical-align: 0.28em;
+    margin-left: -0.48em;
+    margin-right: -0.15em;
+    line-height: 1ex;
+  }
+
+                                                                  
+
+                                                                  
+  .latex span:nth-child(2) {
+    text-transform: uppercase;
+    vertical-align: -0.5ex;
+    margin-left: -0.1667em;
+    margin-right: -0.125em;
+    line-height: 1ex;
+  }
+
+  /* Heading typography */
+  h1 {
+    font-size: 2.5rem;
+    line-height: 3.25rem;
+    margin-bottom: 1.625rem;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    line-height: 2rem;
+    margin-top: 3rem;
+  }
+
+  h3 {
+    font-size: 1.4rem;
+    margin-top: 2.5rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+    margin-top: 1.8rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: normal;
+    margin-top: 2.5rem;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.625rem;
+  }
+
+                                                                  
+
+                                                                  
+  h1 + h2 {
+    margin-top: 1.625rem;
+  }
+
+  h2 + h3,
+  h3 + h4,
+  h4 + h5 {
+    margin-top: 0.8rem;
+  }
+
+  h5 + h6 {
+    margin-top: -0.8rem;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0.8rem;
+  }
+
 

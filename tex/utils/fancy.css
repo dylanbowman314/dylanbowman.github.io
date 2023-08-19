@@ -1,5 +1,4 @@
-/* test.css from test.tex (TeX4ht) */
-  /*!
+/*!
  * LaTeX.css (https://latex.now.sh/)
  *
  * Source: https://github.com/vincentdoerig/latex-css
@@ -15,7 +14,7 @@
       url('./fonts/LM-regular.woff') format('woff'),
       url('./fonts/LM-regular.ttf') format('truetype');
   }
-
+  
   @font-face {
     font-family: 'Latin Modern';
     font-style: italic;
@@ -25,7 +24,7 @@
       url('./fonts/LM-italic.woff') format('woff'),
       url('./fonts/LM-italic.ttf') format('truetype');
   }
-
+  
   @font-face {
     font-family: 'Latin Modern';
     font-style: normal;
@@ -35,7 +34,7 @@
       url('./fonts/LM-bold.woff') format('woff'),
       url('./fonts/LM-bold.ttf') format('truetype');
   }
-
+  
   @font-face {
     font-family: 'Latin Modern';
     font-style: italic;
@@ -45,18 +44,15 @@
       url('./fonts/LM-bold-italic.woff') format('woff'),
       url('./fonts/LM-bold-italic.ttf') format('truetype');
   }
-
+  
   @font-face {
     font-family: 'Libertinus';
-                                                                  
-
-                                                                  
     font-style: normal;
     font-weight: normal;
     font-display: swap;
     src: url('./fonts/Libertinus-regular.woff2') format('woff2');
   }
-
+  
   @font-face {
     font-family: 'Libertinus';
     font-style: italic;
@@ -64,7 +60,7 @@
     font-display: swap;
     src: url('./fonts/Libertinus-italic.woff2') format('woff2');
   }
-
+  
   @font-face {
     font-family: 'Libertinus';
     font-style: normal;
@@ -72,7 +68,7 @@
     font-display: swap;
     src: url('./fonts/Libertinus-bold.woff2') format('woff2');
   }
-
+  
   @font-face {
     font-family: 'Libertinus';
     font-style: italic;
@@ -80,7 +76,7 @@
     font-display: swap;
     src: url('./fonts/Libertinus-bold-italic.woff2') format('woff2');
   }
-
+  
   @font-face {
     font-family: 'Libertinus';
     font-style: normal;
@@ -88,7 +84,7 @@
     font-display: swap;
     src: url('./fonts/Libertinus-semibold.woff2') format('woff2');
   }
-
+  
   @font-face {
     font-family: 'Libertinus';
     font-style: italic;
@@ -96,17 +92,14 @@
     font-display: swap;
     src: url('./fonts/Libertinus-semibold-italic.woff2') format('woff2');
   }
-
+  
   /* Box sizing rules */
   *,
   *::before,
   *::after {
-                                                                  
-
-                                                                  
     box-sizing: border-box;
   }
-
+  
   :root {
     --body-color: hsl(0, 5%, 10%);
     --body-bg-color: hsl(210, 20%, 98%);
@@ -119,7 +112,7 @@
     --sidenote-target-border-color: hsl(55, 55%, 70%);
     --footnotes-border-color: hsl(0, 0%, 39%);
   }
-
+  
   .latex-dark {
     --body-color: hsl(0, 0%, 86%);
     --body-bg-color: hsl(0, 0%, 16%);
@@ -133,7 +126,7 @@
     --footnotes-border-color: hsl(0, 0%, 59%);
     --proof-symbol-filter: invert(80%);
   }
-
+  
   @media (prefers-color-scheme: dark) {
      .latex-dark-auto {
       --body-color: hsl(0, 0%, 86%);
@@ -149,14 +142,11 @@
       --proof-symbol-filter: invert(80%);
     }
   }
-
+  
   /* Remove default margin */
   body,
   h1,
   h2,
-                                                                  
-
-                                                                  
   h3,
   h4,
   p,
@@ -169,7 +159,7 @@
   dd {
     margin: 0;
   }
-
+  
   /* Make default font-size 1rem and add smooth scrolling to anchors */
   html {
     font-size: 1rem;
@@ -179,64 +169,61 @@
       scroll-behavior: smooth;
     }
   }
-
+  
   body.libertinus {
     font-family: 'Libertinus', Georgia, Cambria, 'Times New Roman', Times, serif;
   }
-
+  
   body {
     font-family: 'Latin Modern', Georgia, Cambria, 'Times New Roman', Times, serif;
     line-height: 1.8;
-
+  
     max-width: 80ch;
     min-height: 100vh;
     overflow-x: hidden;
     margin: 0 auto;
     padding: 2rem 1.25rem;
-
+  
     counter-reset: theorem definition sidenote-counter;
-
+  
     color: var(--body-color);
     background-color: var(--body-bg-color);
-
+  
     text-rendering: optimizeLegibility;
   }
-
+  
   /* Justify and hyphenate all paragraphs */
   p {
     text-align: justify;
     hyphens: auto;
     -webkit-hyphens: auto;
-                                                                  
-
-                                                                  
     -moz-hyphens: auto;
     margin-top: 1rem;
   }
-
+  
   /* A elements that don't have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
-
+  
   /* Make links red */
   a,
   a:visited {
     color: var(--link-visited);
   }
-
+  
   a:focus {
     outline-offset: 2px;
     outline: 2px solid var(--link-focus-outline);
   }
-
+  
   /* Make images easier to work with */
   img {
     max-width: 100%;
     height: auto;
     display: block;
   }
-
+  
   /* Inherit fonts for inputs and buttons */
   input,
   button,
@@ -244,25 +231,22 @@
   select {
     font: inherit;
   }
-
+  
   /* Prevent textarea from overflowing */
   textarea {
     width: 100%;
   }
-
+  
   /* Natural flow and rhythm in articles by default */
   article > * + * {
     margin-top: 1em;
   }
-
+  
   /* Styles for inline code or code snippets */
   code,
   pre,
   kbd {
     font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-                                                                  
-
-                                                                  
       monospace;
     font-size: 85%;
   }
@@ -284,7 +268,7 @@
     padding: 2px 4px;
     font-size: 75%;
   }
-
+  
   /* Better tables */
   table {
     border-collapse: collapse;
@@ -313,11 +297,8 @@
   table > tbody > tr:last-child > td,
   table > tbody > tr:last-child > th {
     border-bottom: 1.36px solid var(--table-border-color);
-                                                                  
-
-                                                                  
   }
-
+  
   th,
   td {
     text-align: left;
@@ -333,28 +314,28 @@
     width: 100%;
     margin-left: 0;
   }
-
+  
   caption::before {
     content: 'Table ' counter(caption) '. ';
     font-weight: bold;
   }
-
+  
   /* allow scroll on the x-axis */
   .scroll-wrapper {
     overflow-x: auto;
   }
-
+  
   /* if a table is wrapped in a scroll wrapper,
     the table cells shouldn't wrap */
   .scroll-wrapper > table td {
     white-space: nowrap;
   }
-
+  
   /* Center align the title */
   h1:first-child {
     text-align: center;
   }
-
+  
   /* Nested ordered list for ToC */
   nav ol {
     counter-reset: item;
@@ -366,17 +347,14 @@
   nav li:before {
     content: counters(item, '.') ' ';
     counter-increment: item;
-                                                                  
-
-                                                                  
     padding-right: 0.85rem;
   }
-
+  
   /* Center definitions (most useful for display equations) */
   dl dd {
     text-align: center;
   }
-
+  
   /* Theorem */
   .theorem {
     counter-increment: theorem;
@@ -389,7 +367,7 @@
     font-weight: bold;
     font-style: normal;
   }
-
+  
   /* Lemma */
   .lemma {
     counter-increment: theorem;
@@ -402,7 +380,7 @@
     font-weight: bold;
     font-style: normal;
   }
-
+  
   /* Proof */
   .proof {
     display: block;
@@ -411,20 +389,17 @@
     position: relative;
   }
   .proof::before {
-    content: 'Proof.' attr(title);
+    content: 'Proof. ' attr(title);
     font-style: italic;
   }
   .proof:after {
-    content: '';
+    content: '◾️';
     filter: var(--proof-symbol-filter);
     position: absolute;
     right: -12px;
-                                                                  
-
-                                                                  
     bottom: -2px;
   }
-
+  
   /* Definition */
   .definition {
     counter-increment: definition;
@@ -437,16 +412,16 @@
     font-weight: bold;
     font-style: normal;
   }
-
+  
   /* Center align author name, use small caps and add vertical spacing  */
   .author {
     margin: 0.85rem 0;
     font-variant-caps: small-caps;
     text-align: center;
   }
-
+  
   /* Sidenotes */
-
+  
   .sidenote {
     font-size: 0.8rem;
     float: right;
@@ -455,34 +430,31 @@
     margin-right: -20vw;
     margin-bottom: 1em;
   }
-
+  
   .sidenote.left {
     float: left;
     margin-left: -20vw;
     margin-bottom: 1em;
   }
-
+  
   /* (WIP) add border when a sidenote is clicked on */
   .sidenote:target {
     border: var(--sidenote-target-border-color) 1.5px solid;
     padding: 0 .5rem;
     scroll-margin-block-start: 10rem;
   }
-
+  
   /* sidenote counter */
   .sidenote-number {
     counter-increment: sidenote-counter;
-                                                                  
-
-                                                                  
   }
-
+  
   .sidenote-number::after,
   .sidenote::before {
     position: relative;
     vertical-align: baseline;
   }
-
+  
   /* add number in main content */
   .sidenote-number::after {
     content: counter(sidenote-counter);
@@ -490,34 +462,34 @@
     top: -0.5rem;
     left: 0.1rem;
   }
-
+  
   /* add number in front of the sidenote */
   .sidenote-number ~ .sidenote::before {
     content: counter(sidenote-counter) ' ';
     font-size: 0.7rem;
     top: -0.5rem;
   }
-
+  
   label.sidenote-toggle:not(.sidenote-number) {
     display: none;
   }
-
+  
   /* sidenotes inside blockquotes are indented more */
   blockquote .sidenote {
     margin-right: -24vw;
     width: 18vw;
   }
-
-
+  
+  
   label.sidenote-toggle {
     display: inline;
     cursor: pointer;
   }
-
+  
   input.sidenote-toggle {
     display: none;
   }
-
+  
   @media (max-width: 1050px) {
     label.sidenote-toggle:not(.sidenote-number) {
       display: inline;
@@ -525,9 +497,6 @@
     .sidenote {
       display: none;
     }
-                                                                  
-
-                                                                  
     .sidenote-toggle:checked + .sidenote {
       display: block;
       margin: 0.5rem 1.25rem 1rem 0.5rem;
@@ -542,7 +511,7 @@
       width: 16vw;
     }
   }
-
+  
   /* Make footnote text smaller and left align it (looks bad with long URLs) */
   .footnotes p {
     text-align: left;
@@ -553,7 +522,7 @@
   .footnotes {
     border-top: 1px solid var(--footnotes-border-color);
   }
-
+  
   /* Center title and paragraph */
   .abstract,
   .abstract p {
@@ -567,7 +536,7 @@
     font-size: 1rem;
     margin-bottom: -0.2rem;
   }
-
+  
   /* Format the LaTeX symbol correctly (a higher up, e lower) */
   .latex span:nth-child(1) {
     text-transform: uppercase;
@@ -577,10 +546,7 @@
     margin-right: -0.15em;
     line-height: 1ex;
   }
-
-                                                                  
-
-                                                                  
+  
   .latex span:nth-child(2) {
     text-transform: uppercase;
     vertical-align: -0.5ex;
@@ -588,66 +554,63 @@
     margin-right: -0.125em;
     line-height: 1ex;
   }
-
+  
   /* Heading typography */
   h1 {
     font-size: 2.5rem;
     line-height: 3.25rem;
     margin-bottom: 1.625rem;
   }
-
+  
   h2 {
     font-size: 1.7rem;
     line-height: 2rem;
     margin-top: 3rem;
   }
-
+  
   h3 {
     font-size: 1.4rem;
     margin-top: 2.5rem;
   }
-
+  
   h4 {
     font-size: 1.2rem;
     margin-top: 2rem;
   }
-
+  
   h5 {
     font-size: 1rem;
     margin-top: 1.8rem;
   }
-
+  
   h6 {
     font-size: 1rem;
     font-style: italic;
     font-weight: normal;
     margin-top: 2.5rem;
   }
-
+  
   h3,
   h4,
   h5,
   h6 {
     line-height: 1.625rem;
   }
-
-                                                                  
-
-                                                                  
+  
   h1 + h2 {
     margin-top: 1.625rem;
   }
-
+  
   h2 + h3,
   h3 + h4,
   h4 + h5 {
     margin-top: 0.8rem;
   }
-
+  
   h5 + h6 {
     margin-top: -0.8rem;
   }
-
+  
   h2,
   h3,
   h4,
@@ -655,5 +618,3 @@
   h6 {
     margin-bottom: 0.8rem;
   }
-
-
