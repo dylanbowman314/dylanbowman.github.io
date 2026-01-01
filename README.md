@@ -17,7 +17,7 @@ uv run python render_markdown.py
 - **Output**: repo root (mirrors paths), e.g. `markdown/foo.md` → `foo.html`
 - **Title**: first `# Heading` in the markdown (fallback: filename)
 - **Body**: the first `# Heading` is used as the page title and removed from the body (use `--keep-title-heading` to keep it)
-- **Frontmatter (optional)**: set `title` and/or `date` in the markdown and it will be used for the page header/subtitle
+- **Frontmatter (optional)**: set `title`, `author`, and/or `date` in the markdown and it will be used for the page header. `author` is used in the "Last updated … by …" subtitle.
 - **Optional extensions**:
 
 ```bash
@@ -45,6 +45,7 @@ You can also override the title (instead of using the first `# Heading`):
 ```text
 ---
 title: The best year of my life
+author: Dylan Bowman
 date: 2026-01-01
 ---
 ```

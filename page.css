@@ -15,6 +15,11 @@
   --page-border: rgba(0, 0, 0, 0.06);
 }
 
+/* Override base font size from index.css (default is typically 16px). */
+html {
+  font-size: 14px;
+}
+
 /* Let the paper container control width/padding instead of body */
 body {
   max-width: none;
@@ -44,6 +49,9 @@ body {
 }
 .maketitle .author {
   margin: 0.35rem 0 0;
+}
+.maketitle .author:empty {
+  display: none;
 }
 .maketitle br {
   display: none;

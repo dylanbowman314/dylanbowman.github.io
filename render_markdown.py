@@ -108,10 +108,24 @@ def _split_title_and_body(md_text: str, fallback: str) -> tuple[str | None, str]
     return None, md_text
 
 
-def _template_html(*, page_title: str, page_date: str | None, css_href: str, body_html: str) -> str:
+def _format_last_updated(*, date: str | None, author: str | None) -> str | None:
+    if date and author:
+        return f"Last updated {date} by {author}"
+    if date:
+        return f"Last updated {date}"
+    return None
+
+
+def _template_html(
+    *,
+    page_title: str,
+    last_updated: str | None,
+    css_href: str,
+    body_html: str,
+) -> str:
     # Keep the same class names as `index.html` so `index.css` does the styling.
     safe_title = html.escape(page_title, quote=True)
-    safe_date = html.escape(page_date, quote=True) if page_date else ""
+    safe_last_updated = html.escape(last_updated, quote=True) if last_updated else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -126,7 +140,7 @@ def _template_html(*, page_title: str, page_date: str | None, css_href: str, bod
     <div class="maketitle">
       <h2 class="titleHead">{safe_title}</h2>
       <div class="author"></div><br />
-      <div class="date">{safe_date}</div>
+      <div class="date">{safe_last_updated}</div>
     </div>
 {body_html}
   </main>
@@ -141,9 +155,11 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
 
     fm_title = meta.get("title")
     fm_date = meta.get("date")
+    fm_author = meta.get("author")
 
     h1_title, body_md = _split_title_and_body(md_wo_frontmatter, fallback=md_path.stem)
     title = (fm_title or h1_title or md_path.stem).strip()
+    last_updated = _format_last_updated(date=fm_date, author=fm_author)
 
     if cfg.keep_title_heading:
         body_md = md_wo_frontmatter
@@ -167,7 +183,7 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
 
     html_text = _template_html(
         page_title=title,
-        page_date=fm_date,
+        last_updated=last_updated,
         css_href=css_href,
         body_html=body_html,
     )
