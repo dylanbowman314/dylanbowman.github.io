@@ -1,1 +1,50 @@
 # dylanbowman314.github.io
+
+## Render markdown to HTML
+
+This repo includes `render_markdown.py`, which renders Markdown files from `markdown/` into HTML pages that use `index.css` (matching the look of `index.html`).
+It also includes `page.css`, which adds a "page on a desk" (PDF viewer-like) layout.
+
+### Run
+
+```bash
+uv run python render_markdown.py
+```
+
+### Notes
+
+- **Input**: `markdown/**/*.md`
+- **Output**: repo root (mirrors paths), e.g. `markdown/foo.md` → `foo.html`
+- **Title**: first `# Heading` in the markdown (fallback: filename)
+- **Body**: the first `# Heading` is used as the page title and removed from the body (use `--keep-title-heading` to keep it)
+- **Frontmatter (optional)**: set `title` and/or `date` in the markdown and it will be used for the page header/subtitle
+- **Optional extensions**:
+
+```bash
+uv run python render_markdown.py --extensions fenced_code,tables
+```
+
+### Keep the first heading in the body (optional)
+
+```bash
+uv run python render_markdown.py --keep-title-heading
+```
+
+### Add a date subtitle from markdown (optional)
+
+Put this at the very top of your markdown file:
+
+```text
+---
+date: 2026-01-01
+---
+```
+
+You can also override the title (instead of using the first `# Heading`):
+
+```text
+---
+title: The best year of my life
+date: 2026-01-01
+---
+```

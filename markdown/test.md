@@ -1,0 +1,34 @@
+---
+title: The best year of my life
+date: 2026-01-01
+---
+
+Today, I got a bit sentimental thinking about the year that just passed.
+
+In 2024, I spent a lot of time waiting for things to happen to me. My job didn't seem to be getting me anywhere and I was living in my hometown-also-college-town with two of my best friends while they finished up their degrees. I had a vague yearning to get into AI safety research, but after getting rejected by MATS for the second time I had lost a bit of hope.
+
+I ended up loafing around quite a bit: I took a week off work to play through Persona 3, got shitfaced on St. Patrick's Day, watched all of Evangelion and Code Geass with my roommates, tried magic mushrooms for the first time, directed a quizbowl tournament for my college's team. I really just did not have much going on, and when my lease ended I wasn't sure what to do.
+
+By a stroke of luck, my roommate Matthew moved to Santa Clara for work, so I followed him there. I still didn't have that much going on but at least the weather was nice. Since we were both bored at work, we applied to Y Combinator and got in. Success! A hand had reached down from above to pluck me out of the depths and set me on my destined path. This is where 2025 begins.
+
+---
+
+However, YC did not go so well and 11 weeks in, we had no product, no users, no revenue, and thus skipped Demo Day. We tried a couple more pivots after that point, but it just felt like we weren't learning what we needed to from each failure. Looking ahead, I saw a future where we would continue to fail without even knowing which mistakes we were making, and wasting our valuable years. I had seen some other startups go down this route.
+
+What really helped me realize that I wasn't going anywhere was a conversation with one of my friends (the secret 0th hire at my current company, HUD) when I realized that stubbornly continuing to work on my startup was really driven by a fear of failure rather than actively moving towards a positive target. And worse, my definition of failure itself was shortsightedly defined as the financial failure of my startup rather than the broader picture of failing to use my life's hours effectively. With this lesson learned, I sheepishly messaged my employed friend Govind (the not-secret 1st hire at HUD) to see if the engineering role he had told me about a month earlier was still open. During the work trial, I took ___ to boost my performance, which almost cost me the job after I worked 24 hours straight and subsequently crashed, but I got the job and told Matthew to suck a fat one (just kidding, we hugged and I almost cried).
+
+HUD was, and still is, a crazy place to work. The three founders and Govind are each the most talented coworkers I have ever worked with, and some of the smartest people I've ever met. During my work trial and first week at HUD, I slowly realized how much more slowly I was working than them. I was paranoid every day for the first two months that I would be fired at the end of that week, so I didn't do anything but work during that span. I lost 10 pounds, didn't exercise, and my eyesight got significantly worse. Friends and family would ask me if I was happy and...I was? It's an interesting feeling, to be totalized by your work. My enjoyment was buoyed by the sense of being "in it"--that is to say, HUD does work that intersects with some of the most important companies of the current age, and it was invigorating for me to feel like my actions had consequences, something I hadn't felt in my previous roles.
+
+Being in the pressure cooker helped me improve as an operator. I kept a journal every day, detailing the strategies I used to tackle problems and reflecting on them after work. One recalls Yudkowsky's ["how could I have done that faster"](https://x.com/ESYudkowsky/status/1445461146937413634), which I've found to be a helpful ballast in the journey of self-improvement. While I stopped work-journaling as frequently now that I'm more stable in my role at HUD, I still use it on occasion if I'm stuck on a task I think I could learn a lot from.
+
+These last four months have been less tumultuous. The hours are still long, but I've been able to carve out weekends here and there to spend time with friends or invest in my living conditions (I have 14 plants in my apartment). I have more time in the evenings to practice piano and juggle. I remarked to a friend that I use my free time so much more intentionally when it's scarce. On light weeks when I have lots of time to myself, I still end up scrolling Twitter more than I'd like.
+
+The main thing I think I learned this year is how to make things happen myself. Some people identify this as agency; whatever you want to call it, it's a good skill to have (and one I'm disappointed took so long to acquire). By no means have I perfected it yet, but it's a skill I didn't even know I was missing and learning to make things happen has improved my confidence in my future aspirations. A trend I've noticed in retrospect was how I spent my first couple years out of college waiting for things to happen to me, like getting into the MATS program. Even for YC, I viewed it as my big break. I think now, I view myself as much more of an active participant in my life. I know that my next step will be largely driven by an initiative I push myself rather than hoping for the system to pick me up.
+
+---
+
+Has everything about my life improved? Not quite. I'm still extremely single (2 dates in 2025) and I have much to learn about being an adult. I made a mistake selecting my apartment and now I have an expensive 1-bed and haven't hosted any of the events I planned to host when I signed. I'm desperately trying to keep my bird of paradise plant alive with a solar lamp in the winter months (it's a bad choice for an apartment with west-facing windows in foggy SF). But it's nice to make decisions that have consequences.
+
+But perhaps the biggest change of the year was just moving to San Francisco, a year ago today. What a wonderful city where everything seems to be happening. For all of its faults and flaws, the striver founders who are always in pitch mode, the folded fentanyl addicts who shout and stumble at the SoMa train stations, the crazy rent driven by an inept city government, I still love it here. It's weird, because so many of my friends seem ambivalent or negative towards the city. And I was never a city guy; I dislike pretty much every other city I've been to. But San Francisco is a beautiful place to be. My favorite parts of the city are the marvels built before the wars when we still believed in grandeur: Golden Gate Park, the Palace of Fine Arts, Civic Center. The sentiment has been wrung dry at this point by RETVRN tweets, but I appreciate how the city seems to have a growing desire to build big again.
+
+Anyway, that's all from me. If I met you in the city this year, thanks for everything, and happy new year.
