@@ -5,9 +5,55 @@
   --body-bg-color: #ffffff;
 }
 
+/* TeX Gyre Termes (Times-like TeX font) */
+@font-face {
+  font-family: "TeX Gyre Termes";
+  src: url("./fonts/tex-gyre-termes/texgyretermes-regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TeX Gyre Termes";
+  src: url("./fonts/tex-gyre-termes/texgyretermes-italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TeX Gyre Termes";
+  src: url("./fonts/tex-gyre-termes/texgyretermes-bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TeX Gyre Termes";
+  src: url("./fonts/tex-gyre-termes/texgyretermes-bolditalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* Override base font size from index.css (default is typically 16px). */
 html {
   font-size: 14px;
+}
+
+/* Use the default Latin Modern body font from index.css */
+body {
+  font-family: "Latin Modern", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+/* Remove the large blue focus outline boxes around links (from index.css). */
+a:focus {
+  outline: none;
+}
+a:focus-visible {
+  outline: none;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
 }
 
 /* Simple top navigation */

@@ -12,7 +12,7 @@ In 2024, I spent a lot of time waiting for things to happen to me. My job didn't
 
 I ended up loafing around quite a bit: I took a week off work to play through Persona 3, got shitfaced on St. Patrick's Day, watched all of Evangelion and Code Geass with my roommates, tried magic mushrooms for the first time, directed a quizbowl tournament for my college's team. I really just did not have much going on, and when my lease ended I wasn't sure what to do.
 
-By a stroke of luck, my roommate Matthew moved to Santa Clara for work, so I followed him there. I still didn't have that much going on but at least the weather was nice. Since we were both bored at work, we applied to Y Combinator and got in. Success! A hand had reached down from above to pluck me out of the depths and set me on my destined path. This is where 2025 begins.
+By a stroke of luck, my roommate Matthew moved to Santa Clara for work, so I followed him there. I still didn't have that much going on but at least the weather was nice. Since we were both bored at work, we applied to Y Combinator and got in. Success! A hand had reached down to pluck me out of the depths and set me on my destined path. This is where 2025 begins.
 
 ### 2025
 

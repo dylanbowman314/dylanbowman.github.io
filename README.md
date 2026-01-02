@@ -9,6 +9,8 @@ It also includes `page.css`, which provides small site-wide overrides (font size
 
 `index.css` references Latin Modern font files under `./fonts/`. These are vendored from the `latex-css` project so the site doesn’t fall back to system serif fonts.
 
+This repo also includes **TeX Gyre Termes** under `fonts/tex-gyre-termes/` (licensed under the GUST Font License). `page.css` sets TeX Gyre Termes as the preferred body font.
+
 ### Run
 
 ```bash
