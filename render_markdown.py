@@ -37,6 +37,79 @@ class RenderConfig:
 
 H1_RE = re.compile(r"^\s*#\s+(?P<title>.+?)\s*$")
 
+_IMG_IN_P_RE = re.compile(
+    r"""
+    <p>\s*
+    (?P<img>
+      <img\b
+        (?P<attrs>[^>]*?)
+      >
+    )
+    \s*</p>
+    """,
+    re.IGNORECASE | re.VERBOSE,
+)
+
+_LINKED_IMG_IN_P_RE = re.compile(
+    r"""
+    <p>\s*
+    (?P<link>
+      <a\b[^>]*>\s*
+        (?P<img>
+          <img\b(?P<attrs>[^>]*?)>
+        )
+      \s*</a>
+    )
+    \s*</p>
+    """,
+    re.IGNORECASE | re.VERBOSE,
+)
+
+_ALT_ATTR_RE = re.compile(
+    r"""(?:^|\s)alt\s*=\s*(?P<q>["'])(?P<alt>.*?)(?P=q)""",
+    re.IGNORECASE | re.DOTALL,
+)
+
+
+def _add_image_captions(body_html: str) -> str:
+    """
+    Wrap markdown-rendered images in <figure> with <figcaption> when alt text exists.
+
+    Handles both:
+      <p><img ... alt="..."></p>
+      <p><a ...><img ... alt="..."></a></p>
+    """
+
+    def wrap_img(img_html: str, attrs: str) -> str:
+        m = _ALT_ATTR_RE.search(attrs)
+        if not m:
+            return f"<p>{img_html}</p>"
+        alt = m.group("alt").strip()
+        if not alt:
+            return f"<p>{img_html}</p>"
+        caption = html.escape(html.unescape(alt))
+        return f'<figure class="md-figure">{img_html}<figcaption>{caption}</figcaption></figure>'
+
+    def repl_linked(m: re.Match[str]) -> str:
+        link_html = m.group("link")
+        attrs = m.group("attrs")
+        # Extract the <img ...> inside the link for wrapping
+        img_match = re.search(r"(<img\b[^>]*?>)", link_html, flags=re.IGNORECASE)
+        if not img_match:
+            return m.group(0)
+        img_html = img_match.group(1)
+        return wrap_img(link_html, attrs)
+
+    def repl_img(m: re.Match[str]) -> str:
+        img_html = m.group("img")
+        attrs = m.group("attrs")
+        return wrap_img(img_html, attrs)
+
+    # Linked images first to avoid double-wrapping
+    out = _LINKED_IMG_IN_P_RE.sub(repl_linked, body_html)
+    out = _IMG_IN_P_RE.sub(repl_img, out)
+    return out
+
 
 def _parse_frontmatter(md_text: str) -> tuple[dict[str, str], str]:
     """
@@ -187,6 +260,7 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
 
     md = Markdown(extensions=list(cfg.extensions))
     body_html = md.convert(body_md)
+    body_html = _add_image_captions(body_html)
 
     html_text = _template_html(
         page_title=title,

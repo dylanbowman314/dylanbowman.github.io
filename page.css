@@ -56,6 +56,42 @@ a:focus-visible {
   text-underline-offset: 2px;
 }
 
+/* Utility: centered image capped at 50% of content width */
+img.img-half {
+  display: block;
+  margin: 1.25rem auto;
+  max-width: 50%;
+  height: auto;
+}
+
+/* Default: center markdown images and cap at 50% width */
+p > img,
+p > a > img {
+  display: block;
+  margin: 1.25rem auto;
+  max-width: 50%;
+  height: auto;
+}
+
+/* Figure captions from image alt text */
+figure.md-figure {
+  margin: 1.25rem auto;
+}
+figure.md-figure > img,
+figure.md-figure > a > img {
+  display: block;
+  margin: 0 auto;
+  max-width: 50%;
+  height: auto;
+}
+figure.md-figure > figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.25;
+  opacity: 0.8;
+  text-align: center;
+}
+
 /* Simple top navigation */
 .site-nav {
   font-size: 0.95rem;
@@ -94,7 +130,7 @@ body {
 .maketitle .date {
   margin-top: 0.35rem;
   text-align: left;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   line-height: 1.2;
   opacity: 0.85;
 }

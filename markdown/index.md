@@ -4,4 +4,4 @@
 
 ### Blog
 
-- 2026-01-02: [The best year of my life](test.html)
+- 2026-01-02: [The best year of my life](bestyear.html)
