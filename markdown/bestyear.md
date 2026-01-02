@@ -10,9 +10,9 @@ Today, I got a bit sentimental thinking about the year that just passed.
 
 In 2024, I spent a lot of time waiting for things to happen to me. My job didn't seem to be getting me anywhere and I was living in my hometown-also-college-town with two of my best friends while they finished up their degrees. I had a vague yearning to get into AI safety research, but after getting rejected by MATS for the second time I had lost a bit of hope.
 
-I ended up loafing around quite a bit: I took a week off work to play through Persona 3, got shitfaced on St. Patrick's Day, watched all of Evangelion and Code Geass with my roommates, tried magic mushrooms for the first time, directed a quizbowl tournament for my college's team. I really just did not have much going on, and when my lease ended I wasn't sure what to do.
+I ended up loafing around quite a bit: I took a week off work to play through Persona 3, played a ton of pool at campus bars, watched all of Evangelion and Code Geass with my roommates, tried psychedelics, directed a quizbowl tournament for my college's team. I was really just burning time, and when my lease ended, I wasn't sure what to do.
 
-By a stroke of luck, my roommate Matthew moved to Santa Clara for work, so I followed him there. I still didn't have that much going on but at least the weather was nice. Since we were both bored at work, we applied to Y Combinator and got in. Success! A hand had reached down to pluck me out of the depths and set me on my destined path. This is where 2025 begins.
+By a stroke of luck, my roommate Matthew moved to Santa Clara for work, so I followed him there. I still didn't have that much going on but at least the weather was nice. Since we were both bored at work, we applied to Y Combinator and got in. A hand from above had plucked me out of the depths! This is where 2025 begins.
 
 ### 2025
 
@@ -34,7 +34,7 @@ The main thing I think I learned this year is how to make things happen myself. 
 
 ### 2026
 
-Has everything about my life improved? Not quite. I'm still extremely single (2 dates in 2025) and I have much to learn about being an adult. I made a mistake selecting my apartment and now I have an expensive 1-bed and haven't hosted any of the events I planned to host when I signed. I'm desperately trying to keep my bird of paradise plant alive with a solar lamp in the winter months (it's a bad choice for an apartment with west-facing windows in foggy SF). But it's nice to make decisions that have consequences.
+Has everything about my life improved? Not quite. I only went on two dates in 2025 and I have much to learn about being an adult. I made a mistake selecting my apartment and now I have an expensive 1-bed and none of the events I planned to host when I signed have come to fruition. I'm desperately trying to keep my bird of paradise plant alive with a solar lamp in the winter months (it's a bad choice for an apartment with west-facing windows in foggy SF). But it's nice to make decisions that have consequences.
 
 But perhaps the biggest change of the year was just moving to San Francisco, a year ago today. What a wonderful city where everything seems to be happening. For all of its faults and flaws, the striver founders who are always in pitch mode, the folded fentanyl addicts who shout and stumble at the SoMa train stations, the crazy rent driven by an inept city government, I still love it here. It's weird, because so many of my friends seem ambivalent or negative towards the city. And I was never a city guy; I dislike pretty much every other city I've been to. But San Francisco is a beautiful place to be. My favorite parts of the city are the marvels built before the wars when we still believed in grandeur: Golden Gate Park, the Palace of Fine Arts, Civic Center. The sentiment has been wrung dry at this point by RETVRN tweets, but I appreciate how the city seems to have a growing desire to build big again.
 
