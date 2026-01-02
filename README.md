@@ -3,7 +3,11 @@
 ## Render markdown to HTML
 
 This repo includes `render_markdown.py`, which renders Markdown files from `markdown/` into HTML pages that use `index.css` (matching the look of `index.html`).
-It also includes `page.css`, which adds a "page on a desk" (PDF viewer-like) layout.
+It also includes `page.css`, which provides small site-wide overrides (font size, subtitle spacing, and a white background).
+
+### Fonts
+
+`index.css` references Latin Modern font files under `./fonts/`. These are vendored from the `latex-css` project so the site doesn’t fall back to system serif fonts.
 
 ### Run
 
@@ -23,6 +27,10 @@ uv run python render_markdown.py
 ```bash
 uv run python render_markdown.py --extensions fenced_code,tables
 ```
+
+### Navigation links
+
+Generated pages include a small top nav with **Home** and **About** links pointing at `index.html` and `about.html`. The renderer computes these as **relative links**, so they work from nested pages too.
 
 ### Keep the first heading in the body (optional)
 

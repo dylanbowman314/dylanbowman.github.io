@@ -1,18 +1,8 @@
-/* page.css: adds a "PDF page on a desk" look on top of index.css */
+/* page.css: small site-wide overrides layered on top of index.css */
 
 :root {
-  /* Default paper: A4 (210mm x 297mm). */
-  --paper-width: 210mm;
-  /* Inner margins of the "paper" (roughly PDF-like). */
-  --paper-padding-top: 19mm;
-  --paper-padding-bottom: 22mm;
-  --paper-padding-x: 25mm;
-  /* Space around the paper on the "desk" */
-  --desk-padding-y: 1.25rem;
-  --paper-bg: #ffffff;
-  --desk-bg: #e6e3de;
-  --page-shadow: 0 18px 60px rgba(0, 0, 0, 0.18);
-  --page-border: rgba(0, 0, 0, 0.06);
+  /* Force a plain white page background */
+  --body-bg-color: #ffffff;
 }
 
 /* Override base font size from index.css (default is typically 16px). */
@@ -20,26 +10,25 @@ html {
   font-size: 14px;
 }
 
-/* Let the paper container control width/padding instead of body */
-body {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  background: var(--desk-bg);
+/* Simple top navigation */
+.site-nav {
+  font-size: 0.95rem;
+  margin: 0 0 1.25rem;
+}
+.site-nav a {
+  text-decoration: none;
+}
+.site-nav a:hover {
+  text-decoration: underline;
+}
+.site-nav-sep {
+  padding: 0 0.6rem;
+  opacity: 0.6;
 }
 
-.page {
-  background: var(--paper-bg);
-  border: 1px solid var(--page-border);
-  box-shadow: var(--page-shadow);
-  border-radius: 2px;
-
-  /* Keep a paper-like width on desktop, but remain responsive */
-  width: min(var(--paper-width), calc(100% - 2.5rem));
-  margin: var(--desk-padding-y) auto;
-
-  /* Page margins */
-  padding: var(--paper-padding-top) var(--paper-padding-x) var(--paper-padding-bottom);
+/* Give a bit more breathing room above the title block */
+body {
+  padding-top: 3rem;
 }
 
 /* Tighten the title block spacing (subtitle/date) */
@@ -66,34 +55,3 @@ body {
 .maketitle .date:empty {
   display: none;
 }
-
-/* Mobile: remove the "desk" and let content fill the viewport */
-@media (max-width: 900px) {
-  body {
-    background: var(--body-bg-color);
-  }
-  .page {
-    width: 100%;
-    margin: 0;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-    padding: 2rem 1.25rem; /* match index.css body padding */
-  }
-}
-
-/* Print: remove desk + shadow so it prints cleanly */
-@media print {
-  body {
-    background: #ffffff;
-  }
-  .page {
-    width: 100%;
-    margin: 0;
-    border: 0;
-    box-shadow: none;
-    padding: 0;
-  }
-}
-
-

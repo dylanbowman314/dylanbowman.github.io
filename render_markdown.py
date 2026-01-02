@@ -120,6 +120,8 @@ def _template_html(
     *,
     page_title: str,
     last_updated: str | None,
+    home_href: str,
+    about_href: str,
     css_href: str,
     body_html: str,
 ) -> str:
@@ -136,14 +138,17 @@ def _template_html(
   <link rel="stylesheet" type="text/css" href="{html.escape(os.path.join(os.path.dirname(css_href), 'page.css'), quote=True)}" />
 </head>
 <body>
-  <main class="page">
-    <div class="maketitle">
-      <h2 class="titleHead">{safe_title}</h2>
-      <div class="author"></div><br />
-      <div class="date">{safe_last_updated}</div>
-    </div>
+  <nav class="site-nav" aria-label="Site">
+    <a href="{html.escape(home_href, quote=True)}">Home</a>
+    <span class="site-nav-sep">·</span>
+    <a href="{html.escape(about_href, quote=True)}">About</a>
+  </nav>
+  <div class="maketitle">
+    <h2 class="titleHead">{safe_title}</h2>
+    <div class="author"></div><br />
+    <div class="date">{safe_last_updated}</div>
+  </div>
 {body_html}
-  </main>
 </body>
 </html>
 """
@@ -177,6 +182,8 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
     # Compute correct relative link to index.css living in repo root.
     css_abs = cfg.repo_root / "index.css"
     css_href = os.path.relpath(css_abs, start=out_path.parent)
+    home_href = os.path.relpath(cfg.repo_root / "index.html", start=out_path.parent)
+    about_href = os.path.relpath(cfg.repo_root / "about.html", start=out_path.parent)
 
     md = Markdown(extensions=list(cfg.extensions))
     body_html = md.convert(body_md)
@@ -184,6 +191,8 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
     html_text = _template_html(
         page_title=title,
         last_updated=last_updated,
+        home_href=home_href,
+        about_href=about_href,
         css_href=css_href,
         body_html=body_html,
     )
