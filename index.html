@@ -21,7 +21,46 @@
 <p><a href="https://twitter.com/Shark_Academia">Twitter</a>, <a href="https://www.linkedin.com/in/dylan-bowman-68a56218b/">LinkedIn</a>, <a href="https://github.com/dylanbowman314">GitHub</a></p>
 <h3>Blog</h3>
 <ul>
+<li>2026-01-20: <a href="rl.html">Building an RL Environment to Train Agents for Production Debugging</a></li>
 <li>2026-01-02: <a href="bestyear.html">The best year of my life</a></li>
 </ul>
+  <!-- Lightbox modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+  </div>
+  <script>
+    (function() {
+      const overlay = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      // Open lightbox on image click
+      document.querySelectorAll('figure.md-figure img, p > img, p > a > img').forEach(img => {
+        img.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', function(e) {
+        if (e.target !== lightboxImg) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

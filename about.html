@@ -21,5 +21,43 @@
 <p>I'm a software engineer based in San Francisco. I work at <a href="https://www.hud.ai/">hud</a> where I design evals and RL environments for frontier AI labs. I'm a card-carrying effective altruist which means I have a lot of unqualified opinions on AI and moral philosophy I'm eager to share.</p>
 <p>Outside of work I mostly play guitar and scroll Twitter.</p>
 <figure class="md-figure"><img alt="this is what I look like" src="images/dylanstands.png" /><figcaption>this is what I look like</figcaption></figure>
+  <!-- Lightbox modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+  </div>
+  <script>
+    (function() {
+      const overlay = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      // Open lightbox on image click
+      document.querySelectorAll('figure.md-figure img, p > img, p > a > img').forEach(img => {
+        img.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', function(e) {
+        if (e.target !== lightboxImg) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

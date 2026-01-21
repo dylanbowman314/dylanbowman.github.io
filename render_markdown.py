@@ -222,12 +222,58 @@ def _template_html(
     <div class="date">{safe_last_updated}</div>
   </div>
 {body_html}
+  <!-- Lightbox modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+  </div>
+  <script>
+    (function() {{
+      const overlay = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      // Open lightbox on image click
+      document.querySelectorAll('figure.md-figure img, p > img, p > a > img').forEach(img => {{
+        img.addEventListener('click', function(e) {{
+          e.preventDefault();
+          e.stopPropagation();
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }});
+      }});
+
+      // Close on overlay click
+      overlay.addEventListener('click', function(e) {{
+        if (e.target !== lightboxImg) {{
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }}
+      }});
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {{
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {{
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }}
+      }});
+    }})();
+  </script>
 </body>
 </html>
 """
 
 
-def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
+def _render_one(cfg: RenderConfig, md_path: Path) -> Path | None:
+    # Output path mirrors markdown/ relative structure into out_root.
+    rel = md_path.relative_to(cfg.markdown_dir)
+    out_path = cfg.out_root / rel.with_suffix(".html")
+
+    if out_path.exists() and not cfg.force:
+        print(f"Skipping (already exists): {out_path.relative_to(cfg.repo_root)}")
+        return None
+
     md_text = md_path.read_text(encoding="utf-8")
     meta, md_wo_frontmatter = _parse_frontmatter(md_text)
 
@@ -247,9 +293,6 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
         if fm_title and h1_title and fm_title.strip() != h1_title.strip():
             body_md = md_wo_frontmatter
 
-    # Output path mirrors markdown/ relative structure into out_root.
-    rel = md_path.relative_to(cfg.markdown_dir)
-    out_path = cfg.out_root / rel.with_suffix(".html")
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Compute correct relative link to index.css living in repo root.
@@ -270,11 +313,6 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path:
         css_href=css_href,
         body_html=body_html,
     )
-
-    if out_path.exists() and not cfg.force:
-        raise FileExistsError(
-            f"Refusing to overwrite existing file: {out_path}. Use --force to overwrite."
-        )
 
     out_path.write_text(html_text, encoding="utf-8")
     return out_path
@@ -336,7 +374,9 @@ def main(argv: list[str] | None = None) -> int:
 
     rendered: list[Path] = []
     for md_path in md_files:
-        rendered.append(_render_one(cfg, md_path))
+        out_path = _render_one(cfg, md_path)
+        if out_path is not None:
+            rendered.append(out_path)
 
     for out_path in rendered:
         print(out_path.relative_to(cfg.repo_root))

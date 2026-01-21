@@ -37,5 +37,43 @@
 <p>But perhaps the biggest change of the year was just moving to San Francisco, a year ago today. What a wonderful city where everything seems to be happening. For all of its faults and flaws, the striver founders who are always in pitch mode, the folded fentanyl addicts who shout and stumble at the SoMa train stations, the crazy rent driven by an inept city government, I still love it here. It's weird, because so many of my friends seem ambivalent or negative towards the city. And I was never a city guy; I dislike pretty much every other city I've been to. But San Francisco is a beautiful place to be. My favorite parts of the city are the marvels built before the wars when we still believed in grandeur: Golden Gate Park, the Palace of Fine Arts, Civic Center. The sentiment has been wrung dry at this point by RETVRN tweets, but I appreciate how the city seems to have a growing desire to build big again.</p>
 <figure class="md-figure"><img alt="fig. 3: a foggy evening" src="images/if-you-are-looking-at-the-name-of-this-image-heres-a-secret-the-fireworks-are-fake-it-was-foggy-out.png" /><figcaption>fig. 3: a foggy evening</figcaption></figure>
 <p>Anyway, that's all from me. If I met you in the city this year, thanks for everything, and happy new year.</p>
+  <!-- Lightbox modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+  </div>
+  <script>
+    (function() {
+      const overlay = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      // Open lightbox on image click
+      document.querySelectorAll('figure.md-figure img, p > img, p > a > img').forEach(img => {
+        img.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', function(e) {
+        if (e.target !== lightboxImg) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
