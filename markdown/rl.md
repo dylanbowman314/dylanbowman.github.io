@@ -4,7 +4,7 @@ date: 2026-01-02
 author: Dylan Bowman
 ---
 
-_At [hud](https://www.hud.ai/), we built an RL environment for ops diagnostics – one that lets agents investigate across Sentry, Supabase, Railway, and Kubernetes. We trained a model on 24 real production tasks and saw a 2x improvement. Now we're releasing the environment publicly._
+_At [hud](https://www.hud.ai/), my coworker and I built an RL environment for ops diagnostics: one that lets agents investigate across Sentry, Supabase, Railway, and Kubernetes. We trained a model on 24 real production tasks and saw a 2x improvement._
 
 ---
 
@@ -81,6 +81,6 @@ We're releasing this RL environment publicly. You can explore the scenarios, con
 Every trace on the platform captures the full trajectory – actions, observations, tool calls, and reasoning. You can replay exactly how the agent investigated each issue.
 
 
-## Work with Us
-If you're building agents for production workloads, we can help. HUD provides the infrastructure for reproducible evals, trajectory collection, and model training. We've done this for enterprise spreadsheet work (SheetBench), computer-use agents (OSWorld), and RL environments for DevOps, coding, security, finance, legal document review, medical software, hardware verification, and more.
-Reach out to founders@hud.ai or book a call.
+## Thoughts?
+
+If you have thoughts or questions, please reach out at [dylan@hud.so](mailto:dylan@hud.so).
