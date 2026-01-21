@@ -8,6 +8,8 @@ _At [hud](https://www.hud.ai/), my coworker and I built an RL environment for op
 
 ---
 
+<img src="images/chart_go_up.png" alt="graph go up" style="max-width: 100%">
+
 ## Context
 As engineers at a fast-growing startup, a solid 10-20% of our time is taken up by debugging bugs in production. The way bugs are solved in production is pretty mechanistic:
 1. See error on Sentry
