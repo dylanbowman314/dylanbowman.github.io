@@ -1,7 +1,7 @@
 ---
 title: Building an RL Environment to Train Agents for Production Debugging
 date: 2026-01-02
-author: Dylan Bowman, Lorenss Martinsons, Jay Ram
+author: Dylan Bowman
 ---
 
 _At [hud](https://www.hud.ai/), we built an RL environment for ops diagnostics – one that lets agents investigate across Sentry, Supabase, Railway, and Kubernetes. We trained a model on 24 real production tasks and saw a 2x improvement. Now we're releasing the environment publicly._
