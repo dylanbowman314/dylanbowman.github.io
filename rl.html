@@ -29,7 +29,7 @@
 <p>After doing this a few dozen times, we pondered why we couldn't just have an agent do it, or at the very least assist. The reason is simply that it doesn't have access to the environment, and without the correct prompt or RFT the agent won't be able to intuitively fix bugs the way we can.</p>
 <p>This resulted in us getting rabbit-holed and creating an agent trained on our production data that can debug Sentry errors.
 The naive implementation of giving an LLM access to 104 tools didn't work, so we created an architecture that involved multiple environments accessible via subagents.</p>
-<figure class="md-figure"><img src="images/architecture.png" alt="fig. 1: agent architecture" style="max-width: 100%"><figcaption>fig. 1: agent architecture</figcaption></figure>
+<figure class="md-figure"><img src="images/architecture.png" alt="fig. 1: agent architecture (click to zoom)" style="max-width: 100%"><figcaption>fig. 1: agent architecture (click to zoom)</figcaption></figure>
 <h2>The Architecture: Hierarchical Agents</h2>
 <p>The insight is simple: don't give one agent all the tools. Instead, create an orchestrator environment where the agent's tools are subagents—a Sentry agent, a Supabase agent, a Kubernetes agent. The orchestrator sees just six tools, one per subagent. Behind those six tools are 104 individual MCP tools across all subagents.</p>
 <p>Here's the key insight: each subagent is itself an RL environment. The Sentry subagent has its own scenarios, its own tools, its own reward signal. You can train it independently on Sentry-specific tasks. Same for Supabase, same for Kubernetes. Once each subagent is trained, you compose them into the orchestrator environment.</p>
@@ -39,7 +39,7 @@ The naive implementation of giving an LLM access to 104 tools didn't work, so we
 <p>But an environment alone isn't enough to train an agent: we need to generate tasks. We started with the Sentry subagent.</p>
 <h2>Training the Sentry Subagent: 24 Real Tasks</h2>
 <p>To train the Sentry subagent, we sourced 24 tasks from our actual Sentry instance—real issues from our production systems across different services, error types, and severity levels. Schema validation failures, rate limiting, auth token expiration, WebSocket disconnects, billing edge cases. The diversity matters for generalization.</p>
-<figure class="md-figure"><img src="images/sample_rl_tasks.png" alt="fig. 2: 4 sample tasks" style="max-width: 100%"><figcaption>fig. 2: 4 sample tasks</figcaption></figure>
+<figure class="md-figure"><img src="images/sample_rl_tasks.png" alt="fig. 2: 4 sample tasks (click to zoom)" style="max-width: 100%"><figcaption>fig. 2: 4 sample tasks (click to zoom)</figcaption></figure>
 <p>Each task has a verification criterion – specific facts the agent must surface (like an issue ID, a team UUID, or a specific error message) and facts it must not confuse with similar issues. Binary verification: did the agent find the exact right needle in a very large haystack?
 The answers come from real production data. Task #0010 expects the agent to find that the user was passing toolu_01XArLykPgwrg24DR3WQJ3Mu – a Claude tool call ID – instead of a trace UUID. Task #0016 expects it to find the function print_hello.</p>
 <h2>Training the Sentry Subagent</h2>
@@ -48,7 +48,7 @@ The answers come from real production data. Task #0010 expects the agent to find
 <h2>Results</h2>
 <p>We trained using OpenAI RFT with o4-mini. Training took around 13 hours and ran through 3,000+ traces.
 At 15 steps max per scenario, the trained model sentry-o4-mini performs 2x better than base o4-mini (13% vs 6.3%) on our harder Sentry tasks, and beats Gemini 3 Pro and both Claude models—in fewer steps.</p>
-<figure class="md-figure"><img src="images/taskset_view.png" alt="fig 3. Taskset view on hud.ai for our internal benchmark" style="max-width: 100%"><figcaption>fig 3. Taskset view on hud.ai for our internal benchmark</figcaption></figure>
+<figure class="md-figure"><img src="images/taskset_view.png" alt="fig 3. Taskset view on hud.ai for our internal benchmark (click to zoom)" style="max-width: 100%"><figcaption>fig 3. Taskset view on hud.ai for our internal benchmark (click to zoom)</figcaption></figure>
 <p>This pattern—training on domain-specific tasks to create fast, specialized tools—has improved performance across our other projects too: deep research agents, coding assistants, bug investigation. More case studies coming soon.</p>
 <h2>Designing RL Environments That Generalize</h2>
 <p>This environment teaches us principles that apply beyond ops diagnostics – to any RL environment for tool-using agents:

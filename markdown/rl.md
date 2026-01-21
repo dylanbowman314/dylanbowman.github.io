@@ -20,7 +20,7 @@ After doing this a few dozen times, we pondered why we couldn't just have an age
 This resulted in us getting rabbit-holed and creating an agent trained on our production data that can debug Sentry errors.
 The naive implementation of giving an LLM access to 104 tools didn't work, so we created an architecture that involved multiple environments accessible via subagents.
 
-<img src="images/architecture.png" alt="fig. 1: agent architecture" style="max-width: 100%">
+<img src="images/architecture.png" alt="fig. 1: agent architecture (click to zoom)" style="max-width: 100%">
 
 
 ## The Architecture: Hierarchical Agents
@@ -39,7 +39,7 @@ But an environment alone isn't enough to train an agent: we need to generate tas
 ## Training the Sentry Subagent: 24 Real Tasks
 To train the Sentry subagent, we sourced 24 tasks from our actual Sentry instance—real issues from our production systems across different services, error types, and severity levels. Schema validation failures, rate limiting, auth token expiration, WebSocket disconnects, billing edge cases. The diversity matters for generalization.
 
-<img src="images/sample_rl_tasks.png" alt="fig. 2: 4 sample tasks" style="max-width: 100%">
+<img src="images/sample_rl_tasks.png" alt="fig. 2: 4 sample tasks (click to zoom)" style="max-width: 100%">
 
 Each task has a verification criterion – specific facts the agent must surface (like an issue ID, a team UUID, or a specific error message) and facts it must not confuse with similar issues. Binary verification: did the agent find the exact right needle in a very large haystack?
 The answers come from real production data. Task #0010 expects the agent to find that the user was passing toolu_01XArLykPgwrg24DR3WQJ3Mu – a Claude tool call ID – instead of a trace UUID. Task #0016 expects it to find the function print_hello.
@@ -55,7 +55,7 @@ HUD supports two training backends: OpenAI RFT (o4-mini) and Tinker (Qwen3 235B,
 We trained using OpenAI RFT with o4-mini. Training took around 13 hours and ran through 3,000+ traces.
 At 15 steps max per scenario, the trained model sentry-o4-mini performs 2x better than base o4-mini (13% vs 6.3%) on our harder Sentry tasks, and beats Gemini 3 Pro and both Claude models—in fewer steps.
 
-<img src="images/taskset_view.png" alt="fig 3. Taskset view on hud.ai for our internal benchmark" style="max-width: 100%">
+<img src="images/taskset_view.png" alt="fig 3. Taskset view on hud.ai for our internal benchmark (click to zoom)" style="max-width: 100%">
 
 This pattern—training on domain-specific tasks to create fast, specialized tools—has improved performance across our other projects too: deep research agents, coding assistants, bug investigation. More case studies coming soon.
 
