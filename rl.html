@@ -20,13 +20,15 @@
   </div>
 <p><em>At <a href="https://www.hud.ai/">hud</a>, my coworker and I built an RL environment for ops diagnostics: one that lets agents investigate across Sentry, Supabase, Railway, and Kubernetes. We trained a model on 24 real production tasks and saw a 2x improvement.</em></p>
 <hr />
-<figure class="md-figure"><img src="images/chart_go_up.png" alt="graph go up" style="max-width: 100%"><figcaption>graph go up</figcaption></figure>
+<figure class="md-figure"><img src="images/chart_go_up.png" alt="fig. 0: graph go up" style="max-width: 100%"><figcaption>fig. 0: graph go up</figcaption></figure>
 <h2>Context</h2>
-<p>As engineers at a fast-growing startup, a solid 10-20% of our time is taken up by debugging bugs in production. The way bugs are solved in production is pretty mechanistic:
-1. See error on Sentry
-2. Check Supabase, Railway and Kubernetes Dashboard
-3. Find errors that match with the time of the bug
-4. Cross reference github and docs in order to make a patch to the relevant repository</p>
+<p>As engineers at a fast-growing startup, a solid 10-20% of our time is taken up by debugging bugs in production. The way bugs are solved in production is pretty mechanistic:</p>
+<ol>
+<li>See error on Sentry</li>
+<li>Check Supabase, Railway and Kubernetes Dashboard</li>
+<li>Find errors that match with the time of the bug</li>
+<li>Cross reference github and docs in order to make a patch to the relevant repository</li>
+</ol>
 <p>After doing this a few dozen times, we pondered why we couldn't just have an agent do it, or at the very least assist. The reason is simply that it doesn't have access to the environment, and without the correct prompt or RFT the agent won't be able to intuitively fix bugs the way we can.</p>
 <p>This resulted in us getting rabbit-holed and creating an agent trained on our production data that can debug Sentry errors.
 The naive implementation of giving an LLM access to 104 tools didn't work, so we created an architecture that involved multiple environments accessible via subagents.</p>
@@ -42,7 +44,7 @@ The naive implementation of giving an LLM access to 104 tools didn't work, so we
 <p>To train the Sentry subagent, we sourced 24 tasks from our actual Sentry instance—real issues from our production systems across different services, error types, and severity levels. Schema validation failures, rate limiting, auth token expiration, WebSocket disconnects, billing edge cases. The diversity matters for generalization.</p>
 <figure class="md-figure"><img src="images/sample_rl_tasks.png" alt="fig. 2: 4 sample tasks (click to zoom)" style="max-width: 100%"><figcaption>fig. 2: 4 sample tasks (click to zoom)</figcaption></figure>
 <p>Each task has a verification criterion – specific facts the agent must surface (like an issue ID, a team UUID, or a specific error message) and facts it must not confuse with similar issues. Binary verification: did the agent find the exact right needle in a very large haystack?
-The answers come from real production data. Task #0010 expects the agent to find that the user was passing toolu_01XArLykPgwrg24DR3WQJ3Mu – a Claude tool call ID – instead of a trace UUID. Task #0016 expects it to find the function print_hello.</p>
+The answers come from real production data. Task #0010 expects the agent to find that the user was passing <code>toolu_01XArLykPgwrg24DR3WQJ3Mu</code> – a Claude tool call ID – instead of a trace UUID. Task #0016 expects it to find the function <code>print_hello</code>.</p>
 <h2>Training the Sentry Subagent</h2>
 <p>With 24 verifiable tasks and an environment, we can run reinforcement learning. Even a small dataset, if diverse enough, can meaningfully optimize a subagent – though a single environment can scale to 500 tasks or more. On HUD, you go to Models, fork a base model (we used o4-mini), then click Train. Point it at your taskset and environment. The platform handles the rest—running rollouts, collecting trajectories, and sending them to the RL backend for training (see the training docs).</p>
 <p>HUD supports two training backends: OpenAI RFT (o4-mini) and Tinker (Qwen3 235B, Deepseek V3.1, Kimi K2, and more). Each training run creates a versioned checkpoint on your model, so you can track results and compare across runs.</p>
@@ -52,15 +54,19 @@ At 15 steps max per scenario, the trained model sentry-o4-mini performs 2x bette
 <figure class="md-figure"><img src="images/taskset_view.png" alt="fig 3. Taskset view on hud.ai for our internal benchmark (click to zoom)" style="max-width: 100%"><figcaption>fig 3. Taskset view on hud.ai for our internal benchmark (click to zoom)</figcaption></figure>
 <p>This pattern—training on domain-specific tasks to create fast, specialized tools—has improved performance across our other projects too: deep research agents, coding assistants, bug investigation. More case studies coming soon.</p>
 <h2>Designing RL Environments That Generalize</h2>
-<p>This environment teaches us principles that apply beyond ops diagnostics – to any RL environment for tool-using agents:
-Pick a domain with verifiable outcomes. Some examples:
-1. Finance works because spreadsheet cells are either correct or not.
-    - Support works because tickets get resolved or they don't.
-    - Debugging works because you can check if the agent found the right issue.
-2. Build from real problems. Go through your actual production failures, customer tickets, or historical tasks. Your real production has quirks – weird error messages, confusing duplicate issues, that cron job someone named print_hello. Train on that.
-3. Make verification automatic. If a human has to judge every response, you can't scale. Design tasks where correctness is checkable – specific facts, specific outputs, specific states. LLM-as-judge works for fuzzier domains, but binary verification is cleaner when you can get it.
-4. Hierarchical beats flat. Give the agent 6 subagents instead of 104 tools. Each subagent is itself an RL environment you can train independently. Train the subagents on domain-specific tasks, then compose them.
-5. Use RL, not just evals. Run rollouts, collect successful trajectories, fine-tune, repeat. The environment becomes a flywheel for improvement.</p>
+<p>This environment teaches us principles that apply beyond ops diagnostics – to any RL environment for tool-using agents:</p>
+<ol>
+<li>Pick a domain with verifiable outcomes. Some examples:<ul>
+<li>Finance works because spreadsheet cells are either correct or not.</li>
+<li>Support works because tickets get resolved or they don't.</li>
+<li>Debugging works because you can check if the agent found the right issue.</li>
+</ul>
+</li>
+<li>Build from real problems. Go through your actual production failures, customer tickets, or historical tasks. Your real production has quirks – weird error messages, confusing duplicate issues, that cron job someone named print_hello. Train on that.</li>
+<li>Make verification automatic. If a human has to judge every response, you can't scale. Design tasks where correctness is checkable – specific facts, specific outputs, specific states. LLM-as-judge works for fuzzier domains, but binary verification is cleaner when you can get it.</li>
+<li>Hierarchical beats flat. Give the agent 6 subagents instead of 104 tools. Each subagent is itself an RL environment you can train independently. Train the subagents on domain-specific tasks, then compose them.</li>
+<li>Use RL, not just evals. Run rollouts, collect successful trajectories, fine-tune, repeat. The environment becomes a flywheel for improvement.</li>
+</ol>
 <h2>Try It Yourself</h2>
 <p>We're releasing this RL environment publicly. You can explore the scenarios, connect your own MCP servers, and run diagnostics against your own production stack.</p>
 <ul>

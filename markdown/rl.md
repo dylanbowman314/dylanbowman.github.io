@@ -8,10 +8,11 @@ _At [hud](https://www.hud.ai/), my coworker and I built an RL environment for op
 
 ---
 
-<img src="images/chart_go_up.png" alt="graph go up" style="max-width: 100%">
+<img src="images/chart_go_up.png" alt="fig. 0: graph go up" style="max-width: 100%">
 
 ## Context
 As engineers at a fast-growing startup, a solid 10-20% of our time is taken up by debugging bugs in production. The way bugs are solved in production is pretty mechanistic:
+
 1. See error on Sentry
 2. Check Supabase, Railway and Kubernetes Dashboard
 3. Find errors that match with the time of the bug
@@ -44,7 +45,7 @@ To train the Sentry subagent, we sourced 24 tasks from our actual Sentry instanc
 <img src="images/sample_rl_tasks.png" alt="fig. 2: 4 sample tasks (click to zoom)" style="max-width: 100%">
 
 Each task has a verification criterion – specific facts the agent must surface (like an issue ID, a team UUID, or a specific error message) and facts it must not confuse with similar issues. Binary verification: did the agent find the exact right needle in a very large haystack?
-The answers come from real production data. Task #0010 expects the agent to find that the user was passing toolu_01XArLykPgwrg24DR3WQJ3Mu – a Claude tool call ID – instead of a trace UUID. Task #0016 expects it to find the function print_hello.
+The answers come from real production data. Task #0010 expects the agent to find that the user was passing `toolu_01XArLykPgwrg24DR3WQJ3Mu` – a Claude tool call ID – instead of a trace UUID. Task #0016 expects it to find the function `print_hello`.
 
 
 ## Training the Sentry Subagent
@@ -63,8 +64,9 @@ This pattern—training on domain-specific tasks to create fast, specialized too
 
 ## Designing RL Environments That Generalize
 This environment teaches us principles that apply beyond ops diagnostics – to any RL environment for tool-using agents:
-Pick a domain with verifiable outcomes. Some examples:
-1. Finance works because spreadsheet cells are either correct or not.
+
+1. Pick a domain with verifiable outcomes. Some examples:
+    - Finance works because spreadsheet cells are either correct or not.
     - Support works because tickets get resolved or they don't.
     - Debugging works because you can check if the agent found the right issue.
 2. Build from real problems. Go through your actual production failures, customer tickets, or historical tasks. Your real production has quirks – weird error messages, confusing duplicate issues, that cron job someone named print_hello. Train on that.
