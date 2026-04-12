@@ -1,6 +1,6 @@
 # Dylan Bowman
 
-[Twitter](https://twitter.com/Shark_Academia), [LinkedIn](https://www.linkedin.com/in/dylan-bowman-68a56218b/), [GitHub](https://github.com/dylanbowman314)
+[Twitter](https://twitter.com/Shark_Academia), [LinkedIn](https://www.linkedin.com/in/dylan-bowman-68a56218b/), [GitHub](https://github.com/dylanbowman314), [Email](mailto:dylanbowman314@gmail.com)
 
 ### Blog
 
