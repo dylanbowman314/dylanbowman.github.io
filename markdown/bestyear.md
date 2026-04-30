@@ -2,6 +2,7 @@
 title: The best year of my life
 date: 2026-01-02
 author: Dylan Bowman
+tags: personal
 ---
 
 Today, I got a bit sentimental thinking about the year that just passed.

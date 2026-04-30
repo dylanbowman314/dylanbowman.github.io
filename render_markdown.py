@@ -181,6 +181,34 @@ def _split_title_and_body(md_text: str, fallback: str) -> tuple[str | None, str]
     return None, md_text
 
 
+def _parse_tags(meta: dict[str, str]) -> list[str]:
+    """Parse a comma-separated 'tags' frontmatter field into a list of tag strings."""
+    raw = meta.get("tags", "")
+    return [t.strip() for t in raw.split(",") if t.strip()]
+
+
+_HOMEPAGE_LINK_RE = re.compile(
+    r'(<a\b[^>]*\bhref="(?P<href>[^"#][^"]*)"[^>]*>.*?</a>)',
+    re.DOTALL,
+)
+
+
+def _inject_homepage_tags(body_html: str, tags_map: dict[str, list[str]]) -> str:
+    """Append inline tag badges after post links in the homepage body HTML."""
+
+    def repl(m: re.Match[str]) -> str:
+        href = m.group("href")
+        tags = tags_map.get(href, [])
+        if not tags:
+            return m.group(0)
+        tag_spans = "".join(
+            f'<span class="post-tag">{html.escape(t)}</span>' for t in tags
+        )
+        return m.group(1) + f'<span class="inline-tags">{tag_spans}</span>'
+
+    return _HOMEPAGE_LINK_RE.sub(repl, body_html)
+
+
 def _format_last_updated(*, date: str | None, author: str | None) -> str | None:
     if date and author:
         return f"Last updated {date} by {author}"
@@ -193,6 +221,7 @@ def _template_html(
     *,
     page_title: str,
     last_updated: str | None,
+    tags: list[str],
     home_href: str,
     about_href: str,
     css_href: str,
@@ -201,6 +230,12 @@ def _template_html(
     # Keep the same class names as `index.html` so `index.css` does the styling.
     safe_title = html.escape(page_title, quote=True)
     safe_last_updated = html.escape(last_updated, quote=True) if last_updated else ""
+    tags_html = ""
+    if tags:
+        tag_spans = "".join(
+            f'<span class="post-tag">{html.escape(t)}</span>' for t in tags
+        )
+        tags_html = f'\n    <div class="post-tags">{tag_spans}</div>'
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -219,9 +254,25 @@ def _template_html(
   <div class="maketitle">
     <h2 class="titleHead">{safe_title}</h2>
     <div class="author"></div><br />
-    <div class="date">{safe_last_updated}</div>
+    <div class="date">{safe_last_updated}</div>{tags_html}
   </div>
 {body_html}
+  <script>
+    (function() {{
+      function hashTag(s) {{
+        var h = 5381;
+        for (var i = 0; i < s.length; i++) {{
+          h = (((h << 5) + h) + s.charCodeAt(i)) | 0;
+        }}
+        return Math.abs(h);
+      }}
+      document.querySelectorAll('.post-tag').forEach(function(el) {{
+        var hue = hashTag(el.textContent.trim()) % 360;
+        el.style.background = 'hsl(' + hue + ',55%,88%)';
+        el.style.color = 'hsl(' + hue + ',40%,28%)';
+      }});
+    }})();
+  </script>
   <!-- Lightbox modal -->
   <div class="lightbox-overlay" id="lightbox">
     <img src="" alt="" id="lightbox-img">
@@ -265,7 +316,11 @@ def _template_html(
 """
 
 
-def _render_one(cfg: RenderConfig, md_path: Path) -> Path | None:
+def _render_one(
+    cfg: RenderConfig,
+    md_path: Path,
+    tags_map: dict[str, list[str]] | None = None,
+) -> Path | None:
     # Output path mirrors markdown/ relative structure into out_root.
     rel = md_path.relative_to(cfg.markdown_dir)
     out_path = cfg.out_root / rel.with_suffix(".html")
@@ -280,6 +335,7 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path | None:
     fm_title = meta.get("title")
     fm_date = meta.get("date")
     fm_author = meta.get("author")
+    fm_tags = _parse_tags(meta)
 
     h1_title, body_md = _split_title_and_body(md_wo_frontmatter, fallback=md_path.stem)
     title = (fm_title or h1_title or md_path.stem).strip()
@@ -301,13 +357,18 @@ def _render_one(cfg: RenderConfig, md_path: Path) -> Path | None:
     home_href = os.path.relpath(cfg.repo_root / "index.html", start=out_path.parent)
     about_href = os.path.relpath(cfg.repo_root / "about.html", start=out_path.parent)
 
-    md = Markdown(extensions=list(cfg.extensions))
+    md = Markdown(extensions=["tables", *cfg.extensions])
     body_html = md.convert(body_md)
     body_html = _add_image_captions(body_html)
+
+    is_homepage = out_path == cfg.out_root / "index.html"
+    if is_homepage and tags_map:
+        body_html = _inject_homepage_tags(body_html, tags_map)
 
     html_text = _template_html(
         page_title=title,
         last_updated=last_updated,
+        tags=[] if is_homepage else fm_tags,
         home_href=home_href,
         about_href=about_href,
         css_href=css_href,
@@ -372,15 +433,40 @@ def main(argv: list[str] | None = None) -> int:
         print(f"No markdown files found under: {cfg.markdown_dir}")
         return 0
 
+    # First pass: collect tags for every non-homepage file so we can annotate
+    # post links on the homepage.
+    tags_map: dict[str, list[str]] = {}
+    for md_path in md_files:
+        rel = md_path.relative_to(cfg.markdown_dir)
+        out_path = cfg.out_root / rel.with_suffix(".html")
+        rel_href = str(out_path.relative_to(cfg.out_root))
+        if rel_href == "index.html":
+            continue
+        md_text = md_path.read_text(encoding="utf-8")
+        meta, _ = _parse_frontmatter(md_text)
+        tags = _parse_tags(meta)
+        if tags:
+            tags_map[rel_href] = tags
+
     rendered: list[Path] = []
     for md_path in md_files:
-        out_path = _render_one(cfg, md_path)
+        out_path = _render_one(cfg, md_path, tags_map=tags_map)
         if out_path is not None:
             rendered.append(out_path)
 
     for out_path in rendered:
         print(out_path.relative_to(cfg.repo_root))
     return 0
+
+
+def render() -> None:
+    raise SystemExit(main(["--force"]))
+
+
+def serve() -> None:
+    main(["--force"])
+    from http.server import SimpleHTTPRequestHandler, test as _serve
+    _serve(HandlerClass=SimpleHTTPRequestHandler, port=8000)
 
 
 if __name__ == "__main__":

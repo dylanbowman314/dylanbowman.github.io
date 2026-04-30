@@ -17,6 +17,7 @@
     <h2 class="titleHead">The best year of my life</h2>
     <div class="author"></div><br />
     <div class="date">Last updated 2026-01-02 by Dylan Bowman</div>
+    <div class="post-tags"><span class="post-tag">personal</span></div>
   </div>
 <p>Today, I got a bit sentimental thinking about the year that just passed.</p>
 <h3>2024</h3>
@@ -37,6 +38,22 @@
 <p>But perhaps the biggest change of the year was just moving to San Francisco, a year ago today. What a wonderful city where everything seems to be happening. For all of its faults and flaws, the striver founders who are always in pitch mode, the folded fentanyl addicts who shout and stumble at the SoMa train stations, the crazy rent driven by an inept city government, I still love it here. It's weird, because so many of my friends seem ambivalent or negative towards the city. And I was never a city guy; I dislike pretty much every other city I've been to. But San Francisco is a beautiful place to be. My favorite parts of the city are the marvels built before the wars when we still believed in grandeur: Golden Gate Park, the Palace of Fine Arts, Civic Center. The sentiment has been wrung dry at this point by RETVRN tweets, but I appreciate how the city seems to have a growing desire to build big again.</p>
 <figure class="md-figure"><img alt="fig. 3: a foggy evening" src="images/if-you-are-looking-at-the-name-of-this-image-heres-a-secret-the-fireworks-are-fake-it-was-foggy-out.png" /><figcaption>fig. 3: a foggy evening</figcaption></figure>
 <p>Anyway, that's all from me. If I met you in the city this year, thanks for everything, and happy new year.</p>
+  <script>
+    (function() {
+      function hashTag(s) {
+        var h = 5381;
+        for (var i = 0; i < s.length; i++) {
+          h = (((h << 5) + h) + s.charCodeAt(i)) | 0;
+        }
+        return Math.abs(h);
+      }
+      document.querySelectorAll('.post-tag').forEach(function(el) {
+        var hue = hashTag(el.textContent.trim()) % 360;
+        el.style.background = 'hsl(' + hue + ',55%,88%)';
+        el.style.color = 'hsl(' + hue + ',40%,28%)';
+      });
+    })();
+  </script>
   <!-- Lightbox modal -->
   <div class="lightbox-overlay" id="lightbox">
     <img src="" alt="" id="lightbox-img">

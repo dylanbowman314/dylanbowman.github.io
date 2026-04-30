@@ -21,8 +21,25 @@
 <p><a href="https://twitter.com/Shark_Academia">Twitter</a>, <a href="https://www.linkedin.com/in/dylan-bowman-68a56218b/">LinkedIn</a>, <a href="https://github.com/dylanbowman314">GitHub</a>, <a href="mailto:dylanbowman314@gmail.com">Email</a></p>
 <h3>Blog</h3>
 <ul>
-<li>2026-01-02: <a href="bestyear.html">The best year of my life</a></li>
+<li>2026-04-30: <a href="goblin-mode.html">Goblin Mode, 24 Hours Later</a></li>
+<li>2026-01-02: <a href="bestyear.html">The best year of my life</a><span class="inline-tags"><span class="post-tag">personal</span></span></li>
 </ul>
+  <script>
+    (function() {
+      function hashTag(s) {
+        var h = 5381;
+        for (var i = 0; i < s.length; i++) {
+          h = (((h << 5) + h) + s.charCodeAt(i)) | 0;
+        }
+        return Math.abs(h);
+      }
+      document.querySelectorAll('.post-tag').forEach(function(el) {
+        var hue = hashTag(el.textContent.trim()) % 360;
+        el.style.background = 'hsl(' + hue + ',55%,88%)';
+        el.style.color = 'hsl(' + hue + ',40%,28%)';
+      });
+    })();
+  </script>
   <!-- Lightbox modal -->
   <div class="lightbox-overlay" id="lightbox">
     <img src="" alt="" id="lightbox-img">

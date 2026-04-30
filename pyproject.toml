@@ -7,3 +7,14 @@ requires-python = ">=3.12"
 dependencies = [
     "markdown>=3.5",
 ]
+
+[project.scripts]
+render = "render_markdown:render"
+server = "render_markdown:serve"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["render_markdown"]

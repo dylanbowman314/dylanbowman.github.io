@@ -4,4 +4,5 @@
 
 ### Blog
 
+- 2026-04-30: [Goblin Mode, 24 Hours Later](goblin-mode.html)
 - 2026-01-02: [The best year of my life](bestyear.html)

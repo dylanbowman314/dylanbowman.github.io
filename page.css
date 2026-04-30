@@ -179,3 +179,41 @@ body {
 .maketitle .date:empty {
   display: none;
 }
+
+/* Post tag bubbles */
+.post-tags {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.post-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-family: "Latin Modern Mono", "Courier New", monospace;
+  padding: 0.05rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  /* Colors applied by tag-colors.js; these are fallbacks */
+  background: #e8e8e8;
+  color: #444;
+}
+
+/* Markdown tables */
+table {
+  margin: 1.5rem auto;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid #ccc;
+}
+
+/* Inline tags appended to post links on the homepage */
+.inline-tags {
+  white-space: nowrap;
+}
+.inline-tags .post-tag {
+  margin-left: 0.25rem;
+  vertical-align: middle;
+}
