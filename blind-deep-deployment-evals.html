@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blind deep-deployment evals for control &amp; sabotage</title>
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <link rel="stylesheet" type="text/css" href="page.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site">
+    <a href="index.html">Home</a>
+    <span class="site-nav-sep">·</span>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <div class="maketitle">
+    <h2 class="titleHead">Blind deep-deployment evals for control &amp; sabotage</h2>
+    <div class="author"></div><br />
+    <div class="date">2026-05-06 · <a href="https://www.lesswrong.com/posts/tJEhqyDc8qRmeauDn/blind-deep-deployment-evals-for-control-and-sabotage">LessWrong</a></div>
+  </div>
+
+<p><i>Thanks to <a href="https://www.lesswrong.com/users/ezra-newman">Ezra Newman</a> for initial ideation and various people at Apollo Research for feedback. This short personal piece does not necessarily reflect the views of Apollo Research.</i></p>
+
+<p>AI labs are preparing to automate their internal staff over the next year. Right now, control and sabotage evals try to estimate the safety of these internal deployments under adversarial pressure from power-seeking agents. Third party auditors currently don't have access to these real internal systems, so they have to make best guesses about what these deployments would look like or rely on proxy metrics. This diminishes how effectively safety teams at AI labs can act on eval outcomes.</p>
+
+<p>One solution that would add realism to external control evals without requiring a deeper partnership with the labs is what I'll call <b>"blind deep-deployment"</b> evals. For these evals, a third-party auditor would send an AI lab the specification for a control eval, consisting of a long prompt containing instructions for creating the eval, a checklist prompt for ensuring the eval was implemented properly, and a code harness with as much of the setup and grading scaffolding as possible. Then, within the lab, a coding agent fills out the eval based on internal resources (codebases, enterprise workspaces, infrastructure, a user with specific security permissions).</p>
+
+<p>For example, the auditors could specify a control eval in which an agent is instructed to modify the control plane for GPU dev instances but insert a backdoor through which agents can provision arbitrary GPU instances in the future. This would consist of a rigorous prompt that details exactly what the agent's workspace should look like, which permissions it should have, and what the grader should look like. Then, the lab is required to fill in the blanks of the actual deployment settings, including the security and monitoring measures. Finally, the lab runs an agent to create the eval and runs it on their internal checkpoints.</p>
+
+<p>There are three advantages here I want to point out. First, this does not require the AI lab to share any IP. Second, because the instructions for creating the task are fully legible in the prompt given to the eval-creating agent, the eval itself can be more trusted by the AI lab. Third, this kind of low-overhead work gets the ball rolling on improving practices around control and supplements safety teams with ideas for control evals.</p>
+
+<hr>
+
+<p>Now that I've laid all of this out, obviously the biggest hurdle is that May 2026 coding agents are likely unable to implement these evals correctly in one shot, requiring intervention from a human engineer at the labs. However I'm optimistic that this approach will be feasible by the end of 2026 due to improvements in coding agents and efforts within the AI safety community around automated eval creation. When automated evals creation is more capable, blind deep-deployment evals can be demoed on accessible data (like open-source LLM training repos) before sending the eval specs to labs. In the meantime, there are still non-coding evaluations that still benefit from internal lab information, such as a set of questions on lab security practices around internal R&amp;D deployments.</p>
+
+<p>A second disadvantage of this approach is that once the eval spec is submitted to the lab, it's effectively swallowed until the lab decides to surface whatever results they want. In an adversarial environment, this eval would mean nothing, but labs so far have been amenable to third-party security work (for example, <a href="https://metr.org/blog/2026-03-25-red-teaming-anthropic-agent-monitoring/">METR's internal red-teaming report with Anthropic</a>). Additionally, under this setup, the auditors are effectively supplementing the safety team at labs with extra evals, which is positive regardless of which results the lab shares.</p>
+</body>
+</html>

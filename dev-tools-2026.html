@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dev tools in 2026</title>
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <link rel="stylesheet" type="text/css" href="page.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site">
+    <a href="index.html">Home</a>
+    <span class="site-nav-sep">·</span>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <div class="maketitle">
+    <h2 class="titleHead">Dev tools in 2026</h2>
+    <div class="author"></div><br />
+    <div class="date">2026-05-02</div>
+  </div>
+
+<p>If you're building any kind of dev tool, stop investing in UIs, CLIs, and MCP. Instead, invest in APIs/SDKs and documentation, which make your tool more useful for LLMs.</p>
+
+<p>LLMs are becoming extremely adept at using native low-level tools so it doesn't make sense to build wrappers around these that aren't in the training data.</p>
+
+<ul>
+<li>Many have observed that LLMs use bash commands in effective yet alien ways learned through RL. Another phenomenon is that LLMs used to use Playwright to manipulate browsers, but now they just run CDP commands directly. LLMs also prefer to run Python snippets directly instead of CLI wrappers around the same library, especially if the CLI is not in the training data / not well documented.</li>
+<li>MCP servers are useful for integrations with apps like Claude Desktop, but for devtools in particular, the raw API is more useful for the LLM (for example, the LLM can write API output to a file instead of processing it in-context).</li>
+<li>A good SDK can provide helpful guardrails for the agent. For example, implementing client session management can prevent potential issues and also removes boilerplate.</li>
+<li>UIs are still useful but become less useful as LLMs build more user-specific interaction layers for viewing and manipulating data. For example, a database provider like Supabase provides a full UI right now but in the future they may just provide raw visual components which software teams use to construct their own bespoke UIs.</li>
+<li>Documentation (right now mostly via agent skills) is extremely high ROI and will continue to be higher ROI as more work is delegated to agents. Your service is much less useful if an agent can't one-shot basic actions when given documentation.</li>
+</ul>
+
+<p>My personal opinion is that documentation is much more useful when a human writes it than an LLM. The LLMs that write documentation are usually not opinionated enough, do not understand which user flows to highlight, and make factual errors.</p>
+
+<p>Documentation is especially helpful in describing how to perform specific flows.</p>
+</body>
+</html>

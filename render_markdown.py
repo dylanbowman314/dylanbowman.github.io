@@ -223,7 +223,7 @@ def _template_html(
     last_updated: str | None,
     tags: list[str],
     home_href: str,
-    about_href: str,
+    blog_href: str,
     css_href: str,
     body_html: str,
 ) -> str:
@@ -249,7 +249,7 @@ def _template_html(
   <nav class="site-nav" aria-label="Site">
     <a href="{html.escape(home_href, quote=True)}">Home</a>
     <span class="site-nav-sep">·</span>
-    <a href="{html.escape(about_href, quote=True)}">About</a>
+    <a href="{html.escape(blog_href, quote=True)}">Blog</a>
   </nav>
   <div class="maketitle">
     <h2 class="titleHead">{safe_title}</h2>
@@ -355,22 +355,22 @@ def _render_one(
     css_abs = cfg.repo_root / "index.css"
     css_href = os.path.relpath(css_abs, start=out_path.parent)
     home_href = os.path.relpath(cfg.repo_root / "index.html", start=out_path.parent)
-    about_href = os.path.relpath(cfg.repo_root / "about.html", start=out_path.parent)
+    blog_href = os.path.relpath(cfg.repo_root / "blog.html", start=out_path.parent)
 
     md = Markdown(extensions=["tables", *cfg.extensions])
     body_html = md.convert(body_md)
     body_html = _add_image_captions(body_html)
 
-    is_homepage = out_path == cfg.out_root / "index.html"
-    if is_homepage and tags_map:
+    is_listing_page = out_path == cfg.out_root / "blog.html"
+    if is_listing_page and tags_map:
         body_html = _inject_homepage_tags(body_html, tags_map)
 
     html_text = _template_html(
         page_title=title,
         last_updated=last_updated,
-        tags=[] if is_homepage else fm_tags,
+        tags=[] if is_listing_page else fm_tags,
         home_href=home_href,
-        about_href=about_href,
+        blog_href=blog_href,
         css_href=css_href,
         body_html=body_html,
     )
@@ -440,7 +440,7 @@ def main(argv: list[str] | None = None) -> int:
         rel = md_path.relative_to(cfg.markdown_dir)
         out_path = cfg.out_root / rel.with_suffix(".html")
         rel_href = str(out_path.relative_to(cfg.out_root))
-        if rel_href == "index.html":
+        if rel_href in {"index.html", "blog.html"}:
             continue
         md_text = md_path.read_text(encoding="utf-8")
         meta, _ = _parse_frontmatter(md_text)

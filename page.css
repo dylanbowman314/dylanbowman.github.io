@@ -1,219 +1,70 @@
-/* page.css: small site-wide overrides layered on top of index.css */
-
-:root {
-  /* Force a plain white page background */
-  --body-bg-color: #ffffff;
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* TeX Gyre Termes (Times-like TeX font) */
-@font-face {
-  font-family: "TeX Gyre Termes";
-  src: url("./fonts/tex-gyre-termes/texgyretermes-regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "TeX Gyre Termes";
-  src: url("./fonts/tex-gyre-termes/texgyretermes-italic.otf") format("opentype");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "TeX Gyre Termes";
-  src: url("./fonts/tex-gyre-termes/texgyretermes-bold.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "TeX Gyre Termes";
-  src: url("./fonts/tex-gyre-termes/texgyretermes-bolditalic.otf") format("opentype");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Override base font size from index.css (default is typically 16px). */
 html {
-  font-size: 14px;
+  scrollbar-gutter: stable;
 }
 
-/* Use the default Latin Modern body font from index.css */
 body {
-  font-family: "Latin Modern", Georgia, Cambria, "Times New Roman", Times, serif;
-}
-
-/* Remove the large blue focus outline boxes around links (from index.css). */
-a:focus {
-  outline: none;
-}
-a:focus-visible {
-  outline: none;
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 2px;
-}
-
-/* Utility: centered image capped at 50% of content width */
-img.img-half {
-  display: block;
-  margin: 1.25rem auto;
-  max-width: 50%;
-  height: auto;
-}
-
-/* Default: center markdown images and cap at 50% width */
-p > img,
-p > a > img {
-  display: block;
-  margin: 1.25rem auto;
-  max-width: 50%;
-  height: auto;
-}
-
-/* Figure captions from image alt text */
-figure.md-figure {
-  margin: 1.25rem auto;
-}
-figure.md-figure > img,
-figure.md-figure > a > img {
-  display: block;
+  font-family: Arial, sans-serif;
+  background: white;
+  color: black;
+  max-width: 680px;
   margin: 0 auto;
-  max-width: 50%;
-  height: auto;
-}
-figure.md-figure > figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  line-height: 1.25;
-  opacity: 0.8;
-  text-align: center;
+  padding: 2rem 1rem;
+  line-height: 1.5;
 }
 
-/* Image lightbox modal */
-.lightbox-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  cursor: zoom-out;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.lightbox-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.lightbox-overlay img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 2px;
-  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.5);
-  cursor: default;
-  transform: scale(0.95);
-  transition: transform 0.2s ease;
-}
-
-.lightbox-overlay.active img {
-  transform: scale(1);
-}
-
-/* Make clickable images show zoom cursor */
-figure.md-figure img,
-p > img,
-p > a > img {
-  cursor: zoom-in;
-}
-
-/* Simple top navigation */
-.site-nav {
-  font-size: 0.95rem;
-  margin: 0 0 1.25rem;
-}
-.site-nav a {
-  text-decoration: none;
-}
-.site-nav a:hover {
-  text-decoration: underline;
-}
-.site-nav-sep {
-  padding: 0 0.6rem;
-  opacity: 0.6;
-}
-
-/* Give a bit more breathing room above the title block */
-body {
-  padding-top: 3rem;
-}
-
-/* Tighten the title block spacing (subtitle/date) */
-.maketitle .titleHead {
-  margin-top: 0;
+h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.25rem;
 }
-.maketitle .author {
-  margin: 0.35rem 0 0;
+
+h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + * {
+  margin-top: 0;
 }
-.maketitle .author:empty {
+
+a, a:visited {
+  color: black;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid black;
+}
+
+.lightbox-overlay {
   display: none;
 }
+
 .maketitle br {
   display: none;
 }
-.maketitle .date {
-  margin-top: 0.35rem;
-  text-align: left;
-  font-size: 0.85rem;
-  line-height: 1.2;
-  opacity: 0.85;
-}
+
+.maketitle .author:empty,
 .maketitle .date:empty {
   display: none;
 }
 
-/* Post tag bubbles */
-.post-tags {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-}
-.post-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-family: "Latin Modern Mono", "Courier New", monospace;
-  padding: 0.05rem 0.55rem;
-  border-radius: 999px;
-  letter-spacing: 0.02em;
-  /* Colors applied by tag-colors.js; these are fallbacks */
-  background: #e8e8e8;
-  color: #444;
+figure img {
+  max-width: 65%;
+  margin: 0 auto;
 }
 
-/* Markdown tables */
+figcaption {
+  text-align: center;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+
 table {
-  margin: 1.5rem auto;
   border-collapse: collapse;
 }
+
 th, td {
   padding: 0.3rem 0.75rem;
-  border: 1px solid #ccc;
-}
-
-/* Inline tags appended to post links on the homepage */
-.inline-tags {
-  white-space: nowrap;
-}
-.inline-tags .post-tag {
-  margin-left: 0.25rem;
-  vertical-align: middle;
+  border: 1px solid black;
+  text-align: left;
 }
