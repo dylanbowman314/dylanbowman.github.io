@@ -68,3 +68,56 @@ th, td {
   border: 1px solid black;
   text-align: left;
 }
+
+.embeddable-buttondown-form {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid black;
+}
+
+.embeddable-buttondown-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.embeddable-buttondown-form input[type="email"] {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem;
+  border: 1px solid black;
+  margin-right: 0.4rem;
+}
+
+.embeddable-buttondown-form button[type="submit"] {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+}
+
+.embeddable-buttondown-form button[type="submit"]:hover {
+  background: black;
+  color: white;
+}
+
+.embeddable-buttondown-form button[type="submit"]:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.embeddable-buttondown-form p {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+}
+
+.embeddable-buttondown-form #bd-message {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.embeddable-buttondown-form #bd-message:empty {
+  display: none;
+}
