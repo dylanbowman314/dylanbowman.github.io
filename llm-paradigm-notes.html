@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Notes on the current LLM research paradigm</title>
+  <link rel="stylesheet" type="text/css" href="index.css" />
+  <link rel="stylesheet" type="text/css" href="page.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site">
+    <a href="index.html">Home</a>
+    <span class="site-nav-sep">·</span>
+    <a href="blog.html">Blog</a>
+  </nav>
+  <div class="maketitle">
+    <h2 class="titleHead">Notes on the current LLM research paradigm</h2>
+    <div class="author"></div><br />
+    <div class="date">2026-05-08</div>
+  </div>
+
+<p>Some light forecasting/possibility-scoping for the next couple years of AI. Not a polished piece, just dumping this here to be able to point other people towards it.</p>
+
+<h3>The Trend</h3>
+
+<p>The current trend is that progress in AI is primarily in the form of coding agents. AI labs source billions of dollars of RL environments to post-train their LLMs with pretty simple policy gradient methods in order to release models that are more capable at software engineering and machine learning research. After software engineering is automated, labs will ramp up data collection in other domains and other jobs will be automated.</p>
+
+<p>In this regime, where capabilities are bottlenecked on data humans create/source, compute is not a bottleneck, and progress is not driven by major research breakthroughs, we will end up in a world where all work is automated but there's <b>no intelligence explosion</b>. The reason why there wouldn't be an intelligence explosion is that AIs are not capable of achieving a paradigm-shifting breakthrough like one of the four accelerationist factors I detail in the next section, because their improvement is bottlenecked by the signal humans instill in the data.</p>
+
+<p><b>I think before the trend hits this end point, something will change.</b> In this post, I'll enumerate the empirical factors that could break the trend, grouped into ones that "accelerate" in the broadest sense of the word and ones that "decelerate". Each of these factors is an event that may or may not occur in the future.</p>
+
+<h3>Empirical Factors</h3>
+
+<p><b>Accelerationist:</b></p>
+
+<ol>
+<li>We unlock self-play, and it generalizes.
+<ol type="a">
+<li>The most likely path for this is via formal proofs in math. In theory, this could lead to a self-improving math loop. People are working on this right now.</li>
+<li>The big question: will this generalize? Do the cognitive patterns that emerge in training on math aid in areas we actually care about, like software engineering or real-world strategy? And if so, is it in a scalable way, or are there diminishing returns?</li>
+<li>The area right now: it's possible to generate tasks that are difficult enough, but it's hard to generate ones that are difficult in a way that generalizes to the open problems in math today. If you have a generator-discriminator setup, you need a supervisor on the generator to make sure the generated problems are not difficult in a pathological way.</li>
+<li>OpenAI likely already does a lot of this in-house but they haven't gotten a full unsupervised loop working (we would know if they did!)</li>
+<li>Can we self-play in other domains? Unlikely to land before any of the other factors. Empirically you cannot do this for coding (otherwise Mechanize et al. would not be hiring).</li>
+</ol>
+</li>
+<li>We get continual learning working really well.
+<ol type="a">
+<li>The vision here is that if an LLM can learn continually like a human, we can teach it everything we know, and it can also learn from the environment more easily.</li>
+<li>The area right now: right now we just do agent memory, which is pretty hacky. However, models may be trained to write better memories in the future, which would partially solve this problem.</li>
+<li>If an agent can continually learn from rich human feedback alone, this merely accelerates current trend. If it can continually learn from environment feedback, then this could lead to an intelligence explosion, especially if this feedback can be aggregated across the thousands or millions of model instances.</li>
+</ol>
+</li>
+<li>We're able to move past the task/environment paradigm and train models directly based on real-world reward signals like business profit.
+<ol type="a">
+<li>This solves the data difficulty bottleneck (because you're not dependent on humans knowing how to solve the problem) and allows RL to scale much further.</li>
+<li>I think this will be quite difficult. LLM data right now is hyper-curated to make RL as easy as possible (each task has low-noise reward, tasks are calibrated for maximum entropy); historically RL has been extremely tricky to tune even in small, controlled environments.</li>
+<li>Right now there are not many RL environments that involve maximizing a metric. Most are task-based (my estimate: &gt;95% of coding RL environments are based on completing a task).</li>
+</ol>
+</li>
+<li>Model research taste improves significantly.
+<ol type="a">
+<li>This is a meta-concern, since model research taste could enable any of the above factors.</li>
+<li>I'm distinguishing this from "autoresearch" where an agent hill-climbs a metric; for this I'm really thinking about if LLMs will discover the next breakthrough (the previous breakthroughs being RLVR, scaling laws, transformers).</li>
+<li>The reason this is needed: current research is basically about squeezing more performance out of the data we've sourced from humans.</li>
+</ol>
+</li>
+<li>Models get really good at chip design.
+<ol type="a">
+<li>Another meta-concern that mostly just boosts effective compute. Having more power-efficient hardware is a direct multiplier on available FLOPS for any given power volume, and if we do hit a power bottleneck then more efficient hardware will be the main bottleneck on increasing effective compute.</li>
+</ol>
+</li>
+</ol>
+
+<p><b>Decelerationist:</b></p>
+
+<ol>
+<li>The human data plateau
+<ol type="a">
+<li>I went over this in the preamble, but right now we are in a paradigm where LLMs are still deriving most of their signal from humans. The unsupervised RL gains, where LLMs learn a unique way of doing a task, are doing a small amount of the lifting, but most of post-training is teaching LLMs to do tasks that humans already know how to do.</li>
+</ol>
+</li>
+<li>Context window boundedness
+<ol type="a">
+<li>One factor that could slow down progress before we hit the data wall is the context wall. This is not really biting us right now but could in the future.</li>
+<li>The context wall can either be infrastructural, where GPUs struggle to compute over long sequences, or "algorithmic" which is to say that GPUs are capable but we struggle to get the LLMs to stay coherent. My impression is that right now we are in the second regime; we have 1M context models but they kind of suck past 200k or so. This could change in the future.</li>
+<li>LLMs are still not super coherent across compacted episodes.</li>
+<li>One way to get past the context wall: token compression, where an experience from earlier in the LLM's history gets distilled into a smaller number of tokens.</li>
+</ol>
+</li>
+<li>Pretraining data limit
+<ol type="a">
+<li>We still don't know how much of post-training is really just unhobbling the patterns present in pre-training data vs teaching new patterns. We're basically at the wall right now with pre-training data, I don't think we have another OOM scale-up.</li>
+</ol>
+</li>
+<li>Compute/power bottleneck
+<ol type="a">
+<li>I've heard we have something like 2 more OOMs for compute before we hit power bottlenecks. Right now, America and Europe are not building enough nuclear power plants to meet this demand. If compute really is the dominant factor in LLM progress (I subscribe to it being like 70-80% with data being 10-20% and algorithms &lt;10%), then if we aren't at AGI after 2 more scale-ups then we have hit the wall.</li>
+</ol>
+</li>
+</ol>
+  <script>
+    (function() {
+      function hashTag(s) {
+        var h = 5381;
+        for (var i = 0; i < s.length; i++) {
+          h = (((h << 5) + h) + s.charCodeAt(i)) | 0;
+        }
+        return Math.abs(h);
+      }
+      document.querySelectorAll('.post-tag').forEach(function(el) {
+        var hue = hashTag(el.textContent.trim()) % 360;
+        el.style.background = 'hsl(' + hue + ',55%,88%)';
+        el.style.color = 'hsl(' + hue + ',40%,28%)';
+      });
+    })();
+  </script>
+  <!-- Lightbox modal -->
+  <div class="lightbox-overlay" id="lightbox">
+    <img src="" alt="" id="lightbox-img">
+  </div>
+  <script>
+    (function() {
+      const overlay = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+
+      // Open lightbox on image click
+      document.querySelectorAll('figure.md-figure img, p > img, p > a > img').forEach(img => {
+        img.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          lightboxImg.src = this.src;
+          lightboxImg.alt = this.alt;
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // Close on overlay click
+      overlay.addEventListener('click', function(e) {
+        if (e.target !== lightboxImg) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
